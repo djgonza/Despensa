@@ -16,6 +16,7 @@ export class AboutPage {
 		this.barcodeScanner.scan().then((barcodeData) => {
  			// Success! Barcode data is here
  			console.log(barcodeData);
+ 			alert(barcodeData.text);
 		}, (err) => {
     		// An error occurred
 		});
