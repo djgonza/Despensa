@@ -1,15 +1,8 @@
 {
-  "name": "client",
-  "app_id": "25588d25",
-  "type": "ionic1",
+  "name": "Despensa",
+  "app_id": "",
+  "type": "ionic-angular",
   "integrations": {
-    "gulp": {},
     "cordova": {}
-  },
-  "watchPatterns": [
-    "scss/**/*",
-    "www/**/*",
-    "!www/lib/**/*",
-    "!www/**/*.map"
-  ]
+  }
 }
