@@ -1,0 +1,33 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Añadir Producto</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+
+		<ion-item>
+			<ion-label floating>Nombre</ion-label>
+			<ion-input type="text" [(ngModel)]="nombre"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label floating>Descripcion</ion-label>
+			<ion-input type="text" [(ngModel)]="descripcion"></ion-input>
+		</ion-item>
+
+		<button ion-item (click)="loadCodigo()">
+			<span ></span>
+			{{ codigo ? codigo : "Codigo" }}
+		</button> 
+
+		<ion-item>
+			<img src="{{imagen ? imagen : 'http://via.placeholder.com/350x150'}}" (click)="loadImagen()">
+		</ion-item>
+
+	</ion-list>
+	<button ion-button color="secondary" (click)="guardar()" [disabled]="!validate()">Guardar</button>
+
+</ion-content>
