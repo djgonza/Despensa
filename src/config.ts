@@ -1,6 +1,6 @@
 export default
 {
-	"serverUrl": "https://despensa-rest.herokuapp.com"
+	"serverUrl": "https://despensa-rest.herokuapp.com/"
 }
 
 //"https://despensa-rest.herokuapp.com";
