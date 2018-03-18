@@ -14,11 +14,14 @@
 			<h2>{{producto.nombre}}</h2>
 			<p>{{producto.codigo}}</p>
 			<p>{{producto.descripcion}}</p>
-			<button ion-button icon-end item-end>
-				<span>5</span>
+			<button ion-button icon-end item-end (click)="showModalArticulos(producto)">
+				<span>{{producto.articulos ? producto.articulos.length : 0}}</span>
 				<ion-icon name="md-arrow-dropright"></ion-icon>
 			</button>
 		</ion-item>
 	</ion-list>
+	<ion-fab right bottom>
+		<button ion-fab (click)="refrescar()"><ion-icon name="md-clock"></ion-icon></button>
+	</ion-fab>
 
 </ion-content>

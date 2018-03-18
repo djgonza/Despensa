@@ -60,7 +60,7 @@ export class AddProductosPage {
             this.clear();
         }, err => {
             console.log('error', err);
-        });;
+        });
 	}
 
 	private validate () {

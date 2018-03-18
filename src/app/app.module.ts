@@ -14,7 +14,9 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ProductosPage } from '../pages/productos/productos';
+import { ModalArticulos } from '../pages/modalArticulos/modalArticulos';
 import { AddProductosPage } from '../pages/addProducto/addProducto';
+import { AddArticulo } from '../pages/addArticulo/addArticulo';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +29,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     ProductosPage,
-    AddProductosPage
+    AddProductosPage,
+    ModalArticulos,
+    AddArticulo
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     ProductosPage,
-    AddProductosPage
+    AddProductosPage,
+    ModalArticulos,
+    AddArticulo
   ],
   providers: [
     StatusBar,
