@@ -9,7 +9,7 @@
 	<ion-list *ngFor="let producto of appMemoriaService.productos | async">
 		<ion-item>
 			<ion-thumbnail item-start>
-				<img src="{{producto.imagen}}">
+				<img src="{{ config.serverUrl + producto.imagen}}">
 			</ion-thumbnail>
 			<h2>{{producto.nombre}}</h2>
 			<p>{{producto.codigo}}</p>
@@ -21,7 +21,7 @@
 		</ion-item>
 	</ion-list>
 	<ion-fab right bottom>
-		<button ion-fab (click)="refrescar()"><ion-icon name="md-clock"></ion-icon></button>
+		<button ion-fab (click)="addProducto()"><ion-icon name="md-add-circle"></ion-icon></button>
 	</ion-fab>
 
 </ion-content>

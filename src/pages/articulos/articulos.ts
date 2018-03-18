@@ -4,10 +4,10 @@ import { AppMemoriaService } from './../../services/memoria.service';
 import { AddArticulo } from './../addArticulo/addArticulo';
 
 @Component({
-	selector: 'modal-articulos',
-	templateUrl: 'modalArticulos.html'
+	selector: 'articulos-page',
+	templateUrl: 'articulos.html'
 })
-export class ModalArticulos {
+export class ArticulosPage {
 
 	private producto: object;
 	private articulos: object;
@@ -20,7 +20,6 @@ export class ModalArticulos {
 	) {
 		this.articulos = this.params.get('articulos')
 		this.producto = this.params.data;
-		console.log('modalArticulo producto', this.producto);
 	}
 
 	private dismiss() {

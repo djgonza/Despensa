@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { catchError, map, tap } from 'rxjs/operators';
-
-import { HttpParams } from '@angular/common/http/src/params';
+import Config from './../config';
 
 @Injectable()
 export class HttpService {
 
-    private serviceUrl = 'https://despensa-rest.herokuapp.com';//'http://localhost:3000';// URL to web api
+    private serviceUrl = Config.serverUrl;
     constructor(
         private http: HttpClient) { }
 
     //Peticiones get
     public get(url: string, httpOptions?: any): Observable<any> {
-        console.log("get http service");
         let urlToServer = this.serviceUrl + url;
         return this.http.get(urlToServer, httpOptions);
     }
@@ -36,7 +30,6 @@ export class HttpService {
 
     //Peticiones delete
     public delete(url: string, body: Object, httpOptions?: any): Observable<any> {
-        var self = this;
         let urlToServer = this.serviceUrl + url;
         return this.http.post(urlToServer, body, httpOptions);
     }

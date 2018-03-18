@@ -4,55 +4,26 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { tap } from 'rxjs/operators/tap';
 
 /* Services */
-import { HttpService } from './http.service';
+import { ProductosService } from './productos.service';
+import { ArticulosService } from './articulos.service';
+
 
 @Injectable()
 export class AppMemoriaService {
 	
-	private _productos: BehaviorSubject<Object[]> = new BehaviorSubject<Object[]>(new Array());
+	private _productos: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
+	private _productoSeleccionado: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+	private _articuloSeleccionado: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-	constructor (private http: HttpService) {
-		
-	}
+	constructor (
+		private productosService: ProductosService,
+		private articulosService: ArticulosService
+	) {}
 
-	public loadProductos () {
-		this.http.get('/productos')
-		.pipe(
-			/*tap((res) => {
-				console.log('res', res);
-			}),
-			tap((res) => {
-				console.log('res 1', res);
-			})*/
-		)
+	public loadAllProductos () {
+		this.productosService.loadAllProductos()
 		.subscribe((productos: Object[]) => {
-			this.loadAllArticulosProductos(productos);
 			this._productos.next(productos);
-		}, err => {
-			console.log('error', err);
-		});
-	}
-
-	private loadAllArticulosProductos (productos) {
-		
-		for (var i in productos) {
-			this.loadArticulosByProducto (productos[i]);
-		}
-		
-	}
-
-	private loadArticulosByProducto (producto) {
-		this.http.get('/articulos?id='+ producto._id)
-		.pipe(
-			/*tap((res) => {
-				console.log('res', res);
-			}),
-			tap((res) => {
-				console.log('res 1', res);
-			})*/
-		)
-		.subscribe((articulos: Object[]) => {
-			producto.articulos = articulos;
 		}, err => {
 			console.log('error', err);
 		});
@@ -60,11 +31,11 @@ export class AppMemoriaService {
 
 	/* Productos */
 	public addProducto(producto) {
-		return this.http.post('/productos', producto)
+		return this.productosService.saveProducto(producto)
 		.pipe(
 			tap((res) => {
 				var productosEnMemoria = this._productos.getValue();
-				productosEnMemoria.push(producto);
+				productosEnMemoria.push(res);
 				this._productos.next(productosEnMemoria);
 			})
 		);
@@ -76,10 +47,17 @@ export class AppMemoriaService {
 
 	/* articulos */
 	public addArticulo (articulo) {
-		return this.http.post('/articulos', articulo)
+		return this.articulosService.saveArticulo(articulo)
 		.pipe(
 			tap((res) => {
-				
+				var productos = this._productos.getValue();
+				productos.find ((producto) => {
+					return producto['_id'] == articulo.producto;
+				})['articulos'].push(articulo);
+				/*productos['articulos'] = productos['articulos'].sort((a,b) => {
+					return new Date(b['fechaCaducidad']) - new Date(['fechaCaducidad']);
+				})*/
+				this._productos.next(productos);
 			})
 		);
 	}

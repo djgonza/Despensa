@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AppMemoriaService } from './../../services/memoria.service';
@@ -16,13 +16,12 @@ export class AddProductosPage {
 	private imagen: string;
 
 
-	constructor(public navCtrl: NavController, 
+	constructor(
+		public viewCtrl: ViewController,
 		private appMemoriaService: AppMemoriaService, 
 		private barcodeScanner: BarcodeScanner,
 		private camera: Camera
-		) {
-
-	}
+	) {}
 
 	private loadCodigo () {
 		this.barcodeScanner.scan().then((barcodeData) => {
@@ -43,7 +42,7 @@ export class AddProductosPage {
 		}
 
 		this.camera.getPicture(options).then((imageData) => {
-			this.imagen = 'data:image/jpeg;base64,' + imageData;
+			this.imagen = imageData;
 		}, (err) => {
 			console.log(err);
 		});
@@ -57,7 +56,7 @@ export class AddProductosPage {
 			imagen: this.imagen
 		})
         .subscribe((producto: Object) => {
-            this.clear();
+            this.dismiss();
         }, err => {
             console.log('error', err);
         });
@@ -79,11 +78,8 @@ export class AddProductosPage {
 		return true;
 	}
 
-	private clear () {
-		this.nombre = "";
-		this.codigo = "";
-		this.imagen = "";
-		this.descripcion = "";
+	private dismiss() {
+		this.viewCtrl.dismiss();
 	}
 
 }

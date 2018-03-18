@@ -8,13 +8,15 @@ import { MyApp } from './app.component';
 
 import { AppMemoriaService } from './../services/memoria.service';
 import { HttpService } from './../services/http.service';
+import { ProductosService } from './../services/productos.service';
+import { ArticulosService } from './../services/articulos.service';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ProductosPage } from '../pages/productos/productos';
-import { ModalArticulos } from '../pages/modalArticulos/modalArticulos';
+import { ArticulosPage } from '../pages/articulos/articulos';
 import { AddProductosPage } from '../pages/addProducto/addProducto';
 import { AddArticulo } from '../pages/addArticulo/addArticulo';
 
@@ -30,7 +32,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage,
     ProductosPage,
     AddProductosPage,
-    ModalArticulos,
+    ArticulosPage,
     AddArticulo
   ],
   imports: [
@@ -47,7 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage,
     ProductosPage,
     AddProductosPage,
-    ModalArticulos,
+    ArticulosPage,
     AddArticulo
   ],
   providers: [
@@ -57,7 +59,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BarcodeScanner,
     Camera,
     AppMemoriaService,
-    HttpService
+    HttpService,
+    ProductosService,
+    ArticulosService
   ]
 })
 export class AppModule {}

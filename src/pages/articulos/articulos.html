@@ -14,8 +14,8 @@
 <ion-content>
 	<ion-list>
 		<ion-item *ngFor="let articulo of articulos">
-			{{articulo.fechaCaducidad}}<p>
-				{{articulo.ubicacion}}
+			{{articulo.fechaCaducidad | date:'dd/MM/yyyy'}}<p>
+			{{articulo.ubicacion}}
 			</ion-item>
 		</ion-list>
 		<ion-fab right bottom>

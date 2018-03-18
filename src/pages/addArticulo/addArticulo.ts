@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
 
 @Component({
@@ -30,8 +30,7 @@ export class AddArticulo {
 			producto: this.producto,
 			ubicacion: this.ubicacion,
 			fechaCaducidad: this.fechaCaducidad
-		}).subscribe((articulo: object) => {
-			console.log(articulo);
+		}).subscribe((articulo) => {
             this.dismiss();
         }, err => {
             console.log('error', err);

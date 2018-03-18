@@ -11,10 +11,10 @@ import { AddProductosPage } from '../addProducto/addProducto';
 })
 export class TabsPage {
 
-  tab1Root = AddProductosPage;
+  tab1Root = ProductosPage;
   tab2Root = AboutPage;
   tab3Root = ContactPage;
-  tab4Root = ProductosPage;
+  tab4Root = AddProductosPage;
 
   constructor() {
 

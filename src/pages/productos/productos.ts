@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
-import { ModalArticulos } from './../modalArticulos/modalArticulos';
+import { AddProductosPage } from './../addProducto/addProducto';
+import { ArticulosPage } from './../articulos/articulos';
+import Config from './../../config';
 
 @Component({
 	selector: 'page-productos',
@@ -9,25 +11,29 @@ import { ModalArticulos } from './../modalArticulos/modalArticulos';
 })
 export class ProductosPage implements OnInit {
 
+	private config: object;
+
 	constructor(
 		public navCtrl: NavController, 
 		private appMemoriaService: AppMemoriaService,
 		public modalCtrl: ModalController
-		) {
+	) {
 
 	}
 
 	ngOnInit() { 
-		this.appMemoriaService.loadProductos();
+		this.config = Config;
+		this.appMemoriaService.loadAllProductos();
 	}
 
 	private showModalArticulos (producto: object) {
-		let modal = this.modalCtrl.create(ModalArticulos, producto);
+		let modal = this.modalCtrl.create(ArticulosPage, producto);
     	modal.present();
 	}
 
-	private refrescar () {
-		this.appMemoriaService.loadProductos();
+	private addProducto () {
+		let modal = this.modalCtrl.create(AddProductosPage);
+    	modal.present();
 	}
 
 }
