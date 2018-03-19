@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { ModalController, ViewController, NavParams } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
 import { AddArticulo } from './../addArticulo/addArticulo';
 
@@ -10,14 +10,14 @@ import { AddArticulo } from './../addArticulo/addArticulo';
 export class ArticulosPage {
 
 	private producto: object;
-	private articulos: object;
+	private articulos: object[];
 
 	constructor(
 		public viewCtrl: ViewController,
 		public params: NavParams,
 		public modalCtrl: ModalController,
 		private appMemoriaService: AppMemoriaService
-	) {
+		) {
 		this.articulos = this.params.get('articulos')
 		this.producto = this.params.data;
 	}
@@ -28,7 +28,19 @@ export class ArticulosPage {
 
 	private showModalAddArticulos () {
 		let modal = this.modalCtrl.create(AddArticulo, this.producto);
-    	modal.present();
+		modal.present();
+	}
+
+	private updateCantidad (articulo, cantidad) {
+		this.appMemoriaService.updateArticuloCantidad(articulo['_id'], cantidad)
+		.subscribe((res) => {
+			console.log("res", res);
+			this.articulos.find((articulo) => {
+				return articulo['_id'] == res['_id'];
+			})['cantidad'] = res['cantidad'];
+		}, (err) => {
+			console.log(err);
+		})
 	}
 
 }

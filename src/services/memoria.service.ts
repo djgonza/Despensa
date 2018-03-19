@@ -12,14 +12,18 @@ import { ArticulosService } from './articulos.service';
 export class AppMemoriaService {
 	
 	private _productos: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
-	private _productoSeleccionado: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-	private _articuloSeleccionado: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-
+	
 	constructor (
 		private productosService: ProductosService,
 		private articulosService: ArticulosService
 	) {}
 
+	/* Accesores */
+	public get productos(): Observable<Object[]> {
+		return this._productos.asObservable();
+	}
+
+	/* Productos */
 	public loadAllProductos () {
 		this.productosService.loadAllProductos()
 		.subscribe((productos: Object[]) => {
@@ -29,7 +33,6 @@ export class AppMemoriaService {
 		});
 	}
 
-	/* Productos */
 	public addProducto(producto) {
 		return this.productosService.saveProducto(producto)
 		.pipe(
@@ -39,10 +42,6 @@ export class AppMemoriaService {
 				this._productos.next(productosEnMemoria);
 			})
 		);
-	}
-
-	public get productos(): Observable<Object[]> {
-		return this._productos.asObservable();
 	}
 
 	/* articulos */
@@ -60,6 +59,13 @@ export class AppMemoriaService {
 				this._productos.next(productos);
 			})
 		);
+	}
+
+	public updateArticuloCantidad (articuloId, cantidad) {
+		return this.articulosService.updateArticuloCantidad({
+			"_id": articuloId,
+			"cantidad": cantidad
+		});
 	}
 
 }

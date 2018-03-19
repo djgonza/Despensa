@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
 import { AddProductosPage } from './../addProducto/addProducto';
 import { ArticulosPage } from './../articulos/articulos';

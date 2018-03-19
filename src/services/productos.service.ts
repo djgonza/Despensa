@@ -22,7 +22,7 @@ export class ProductosService {
 	}
 
 	public saveProducto (producto: object): Observable<object> {
-		return this.http.post('productos', producto);
+		return this.http.post('productos/save', producto);
 	}
 
 	/*public updateArticulo (articulo: object): Observable<object> {

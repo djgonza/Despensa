@@ -25,12 +25,12 @@ export class HttpService {
     //Peticiones put
     public put(url: string, body: Object, httpOptions?: any): Observable<any> {
         let urlToServer = this.serviceUrl + url;
-        return this.http.post(urlToServer, body, httpOptions);
+        return this.http.put(urlToServer, body, httpOptions);
     }
 
     //Peticiones delete
-    public delete(url: string, body: Object, httpOptions?: any): Observable<any> {
+    public delete(url: string, httpOptions?: any): Observable<any> {
         let urlToServer = this.serviceUrl + url;
-        return this.http.post(urlToServer, body, httpOptions);
+        return this.http.delete(urlToServer, httpOptions);
     }
 }

@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 
@@ -11,9 +11,6 @@ import { HttpService } from './../services/http.service';
 import { ProductosService } from './../services/productos.service';
 import { ArticulosService } from './../services/articulos.service';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ProductosPage } from '../pages/productos/productos';
 import { ArticulosPage } from '../pages/articulos/articulos';
@@ -26,9 +23,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
     ProductosPage,
     AddProductosPage,
@@ -43,9 +37,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
     ProductosPage,
     AddProductosPage,

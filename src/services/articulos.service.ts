@@ -9,20 +9,12 @@ export class ArticulosService {
 		private http: HttpService
 	) {}
 
-	public loadArticulosByProducto (producto: object): Observable<object[]> {
-		return this.http.get('articulos/getByProducto?=producto' + producto['_id']);
-	}
-
 	public saveArticulo (articulo: object): Observable<boolean> {
-		return this.http.post('articulos', articulo);
+		return this.http.post('articulos/save', articulo);
 	}
 
-	/*public updateArticulo (articulo: object): Observable<object> {
-
+	public updateArticuloCantidad (articulo): Observable<boolean> {
+		return this.http.put('articulos/updateCantidadById', articulo);
 	}
-
-	public removeArticulo (articuloId: string): Observable<boolean> {
-
-	}*/
 
 }

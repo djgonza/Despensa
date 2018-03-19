@@ -14,11 +14,36 @@
 <ion-content>
 	<ion-list>
 		<ion-item *ngFor="let articulo of articulos">
-			{{articulo.fechaCaducidad | date:'dd/MM/yyyy'}}<p>
-			{{articulo.ubicacion}}
-			</ion-item>
-		</ion-list>
-		<ion-fab right bottom>
-			<button ion-fab (click)="showModalAddArticulos()"><ion-icon name="add"></ion-icon></button>
-		</ion-fab>
-	</ion-content>
+			<ion-avatar item-start>
+				<img src="http://via.placeholder.com/500x500">
+			</ion-avatar>
+			<ion-row align-items-center>
+				<ion-col col-7>
+					<h2>{{articulo.ubicacion}}</h2>
+					<h3>{{articulo.fechaCaducidad | date:'dd/MM/yyyy'}}</h3>
+				</ion-col>
+				<ion-col col-5>
+					<ion-row align-items-center>
+						<ion-col col-4 text-center>
+							<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad+1)">
+								<ion-icon name="md-arrow-dropleft"></ion-icon>
+							</button>
+						</ion-col>
+						<ion-col col-4 text-center>
+							{{articulo.cantidad ? articulo.cantidad : 0}}
+						</ion-col>
+						<ion-col col-4 text-center>
+							<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad-1)">
+								<ion-icon name="md-arrow-dropright"></ion-icon>
+							</button>
+						</ion-col>
+					</ion-row>
+				</ion-col>
+			</ion-row>
+		</ion-item>
+	</ion-list>
+
+	<ion-fab right bottom>
+		<button ion-fab (click)="showModalAddArticulos()"><ion-icon name="add"></ion-icon></button>
+	</ion-fab>
+</ion-content>

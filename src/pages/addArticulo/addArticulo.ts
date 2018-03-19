@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
 
@@ -29,7 +29,8 @@ export class AddArticulo {
 		this.appMemoriaService.addArticulo({
 			producto: this.producto,
 			ubicacion: this.ubicacion,
-			fechaCaducidad: this.fechaCaducidad
+			fechaCaducidad: this.fechaCaducidad,
+			cantidad: 0
 		}).subscribe((articulo) => {
             this.dismiss();
         }, err => {
