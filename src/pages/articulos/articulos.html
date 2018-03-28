@@ -4,28 +4,37 @@
 			Articulos
 		</ion-title>
 		<ion-buttons start>
-			<button ion-button (click)="dismiss()">
+			<button ion-button (click)="goBack()">
 				<span ion-text color="primary" showWhen="ios">Cancel</span>
-				<ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+				<ion-icon name="md-close"></ion-icon>
 			</button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 <ion-content>
+
+	<ion-card *ngIf="appMemoriaService.articulosCountByProducto() == 0">
+		<ion-card-content>
+			No hay elementos que mostrar.
+		</ion-card-content>
+	</ion-card>
+
 	<ion-list>
-		<ion-item *ngFor="let articulo of articulos">
-			<ion-avatar item-start>
-				<img src="http://via.placeholder.com/500x500">
-			</ion-avatar>
+		<ion-item *ngFor="
+			let articulo of appMemoriaService.articulos 
+			| async 
+			| filterByProducto: 'producto' : appMemoriaService.productoSeleccionado 
+			| orderByDate : 'fechaCaducidad';" [ngClass]="getClassByDate(articulo['fechaCaducidad'])">
 			<ion-row align-items-center>
 				<ion-col col-7>
 					<h2>{{articulo.ubicacion}}</h2>
-					<h3>{{articulo.fechaCaducidad | date:'dd/MM/yyyy'}}</h3>
+					<h3>{{articulo.fechaCaducidad | date: 'dd/MM/yyyy'}}</h3>
+					<h3>{{articulo.fechaCaducidad | timeToEnd }}</h3>
 				</ion-col>
 				<ion-col col-5>
 					<ion-row align-items-center>
 						<ion-col col-4 text-center>
-							<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad+1)">
+							<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad-1)">
 								<ion-icon name="md-remove"></ion-icon>
 							</button>
 						</ion-col>
@@ -33,7 +42,7 @@
 							{{articulo.cantidad ? articulo.cantidad : 0}}
 						</ion-col>
 						<ion-col col-4 text-center>
-							<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad-1)">
+							<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad+1)">
 								<ion-icon name="md-add"></ion-icon>
 							</button>
 						</ion-col>
@@ -43,7 +52,9 @@
 		</ion-item>
 	</ion-list>
 
+	<div class="separador"></div>
+
 	<ion-fab right bottom>
-		<button ion-fab (click)="showModalAddArticulos()"><ion-icon name="add"></ion-icon></button>
+		<button ion-fab (click)="navigateToAddArticulosPage()"><ion-icon name="add"></ion-icon></button>
 	</ion-fab>
 </ion-content>

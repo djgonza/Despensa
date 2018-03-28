@@ -1,38 +1,34 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
 
 @Component({
-	selector: 'modal-add_articulo',
+	selector: 'page-add-articulo',
 	templateUrl: 'addArticulo.html'
 })
 export class AddArticulo {
 
 	private ubicacion;
 	private fechaCaducidad;
-	private producto;
 
 	constructor(
-		public viewCtrl: ViewController,
-		public params: NavParams,
+		public navCtrl: NavController, 
 		private appMemoriaService: AppMemoriaService
 	) {
-		this.producto = this.params.get('_id')
-		console.log('producto', this.producto);
 	}
 
-	private dismiss() {
-		this.viewCtrl.dismiss();
+	private goBack() {
+		this.navCtrl.pop();
 	}
 
 	private guardar () {
 		this.appMemoriaService.addArticulo({
-			producto: this.producto,
 			ubicacion: this.ubicacion,
 			fechaCaducidad: this.fechaCaducidad,
-			cantidad: 0
+			cantidad: 0,
+			producto: this.appMemoriaService.productoSeleccionado
 		}).subscribe((articulo) => {
-            this.dismiss();
+            this.navCtrl.pop();
         }, err => {
             console.log('error', err);
         });;

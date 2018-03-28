@@ -9,7 +9,11 @@ export class ArticulosService {
 		private http: HttpService
 	) {}
 
-	public saveArticulo (articulo: object): Observable<boolean> {
+	public loadAllArticulos (): Observable<object[]> {
+		return this.http.get('articulos/getAll');
+	}
+
+	public saveArticulo (articulo: object): Observable<object> {
 		return this.http.post('articulos/save', articulo);
 	}
 

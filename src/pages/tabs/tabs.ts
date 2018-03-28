@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ProductosPage } from '../productos/productos';
-import { AddProductosPage } from '../addProducto/addProducto';
 
 @Component({
   templateUrl: 'tabs.html'

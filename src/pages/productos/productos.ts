@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { Component, OnInit, Pipe, PipeTransform, Injectable } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { AppMemoriaService } from './../../services/memoria.service';
 import { AddProductosPage } from './../addProducto/addProducto';
 import { ArticulosPage } from './../articulos/articulos';
@@ -12,30 +12,44 @@ import Config from './../../config';
 export class ProductosPage implements OnInit {
 
 	private config: object;
+	private filter: string;
 
 	constructor(
 		public navCtrl: NavController, 
-		private appMemoriaService: AppMemoriaService,
-		public modalCtrl: ModalController
-	) {
-
-	}
+		private appMemoriaService: AppMemoriaService
+		) {}
 
 	ngOnInit() { 
 		this.config = Config;
-		this.appMemoriaService.loadAllProductos();
 	}
 
-	private showModalArticulos (producto: object) {
-		let modal = this.modalCtrl.create(ArticulosPage, producto);
-    	modal.present();
+	private navigateToArticulosPage (productoId) {
+		this.appMemoriaService.setProductoSeleccionado(productoId);
+		this.navCtrl.push(ArticulosPage);
 	}
 
-	private addProducto () {
-		let modal = this.modalCtrl.create(AddProductosPage);
-    	modal.present();
+	private navigateToAddArticuloPage () {
+		this.navCtrl.push(AddProductosPage);
 	}
 
+	private setSearchFilter (ev) {
+		this.filter = ev.target.value;
+	}
+
+}
+
+@Pipe({
+	name: 'filterByName',
+	pure: false
+})
+
+@Injectable()
+export class FilterByName implements PipeTransform {
+	transform(items: any[], field: string, value: string): any[] {
+		if (!items) return [];
+		if (!value || value.trim() == '') return items;
+		return items.filter(it => it[field].toLowerCase().includes(value.toLowerCase()));
+	}
 }
 
 

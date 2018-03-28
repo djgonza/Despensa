@@ -12,10 +12,12 @@ import { ProductosService } from './../services/productos.service';
 import { ArticulosService } from './../services/articulos.service';
 
 import { TabsPage } from '../pages/tabs/tabs';
-import { ProductosPage } from '../pages/productos/productos';
-import { ArticulosPage } from '../pages/articulos/articulos';
+import { ProductosPage, FilterByName } from '../pages/productos/productos';
+import { ArticulosPage, FilterByProducto, TimeToEnd } from '../pages/articulos/articulos';
 import { AddProductosPage } from '../pages/addProducto/addProducto';
 import { AddArticulo } from '../pages/addArticulo/addArticulo';
+
+import { OrderByDate } from '../pipes/orderByDate';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +29,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ProductosPage,
     AddProductosPage,
     ArticulosPage,
-    AddArticulo
+    AddArticulo,
+    FilterByProducto,
+    OrderByDate,
+    TimeToEnd,
+    FilterByName
   ],
   imports: [
     BrowserModule,

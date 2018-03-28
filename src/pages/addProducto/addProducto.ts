@@ -1,27 +1,30 @@
-import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { Component, Input } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AppMemoriaService } from './../../services/memoria.service';
 
 @Component({
-	selector: 'page-addProductos',
+	selector: 'page-add-productos',
 	templateUrl: 'addProducto.html'
 })
 export class AddProductosPage {
 
-	private nombre: string;
+	@Input() nombre: string;
+	@Input() descripcion: string;
 	private codigo: string;
-	private descripcion: string;
 	private imagen: string;
 
-
 	constructor(
-		public viewCtrl: ViewController,
+		public navCtrl: NavController, 
 		private appMemoriaService: AppMemoriaService, 
 		private barcodeScanner: BarcodeScanner,
 		private camera: Camera
 	) {}
+
+	private goBack () {
+		this.navCtrl.pop();
+	}
 
 	private loadCodigo () {
 		this.barcodeScanner.scan().then((barcodeData) => {
@@ -56,7 +59,7 @@ export class AddProductosPage {
 			imagen: this.imagen
 		})
         .subscribe((producto: Object) => {
-            this.dismiss();
+            this.goBack();
         }, err => {
             console.log('error', err);
         });
@@ -76,10 +79,6 @@ export class AddProductosPage {
 			return false;
 		}
 		return true;
-	}
-
-	private dismiss() {
-		this.viewCtrl.dismiss();
 	}
 
 }

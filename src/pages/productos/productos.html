@@ -4,24 +4,30 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="card-background-page">
 
-	<ion-list *ngFor="let producto of appMemoriaService.productos | async">
-		<ion-item>
-			<ion-thumbnail item-start>
-				<img src="{{ config.serverUrl + producto.imagen}}">
-			</ion-thumbnail>
-			<h2>{{producto.nombre}}</h2>
-			<p>{{producto.codigo}}</p>
-			<p>{{producto.descripcion}}</p>
-			<button ion-button icon-end item-end (click)="showModalArticulos(producto)">
-				<span>{{producto.articulos ? producto.articulos.length : 0}}</span>
-				<ion-icon name="md-arrow-dropright"></ion-icon>
-			</button>
-		</ion-item>
-	</ion-list>
+	<ion-card *ngIf="appMemoriaService.productosCount == 0">
+		<ion-card-content>
+			No hay elementos que mostrar.
+		</ion-card-content>
+	</ion-card>
+
+	<ion-searchbar (ionInput)="setSearchFilter($event)"></ion-searchbar>
+
+	<ion-card *ngFor="let producto of appMemoriaService.productos 
+	| async
+	| filterByName : 'nombre' : filter
+	" (click)="navigateToArticulosPage(producto['_id'])">
+		<img src="{{ config.serverUrl + producto.imagen}}">
+		<div class="card-title">{{producto.nombre}}</div>
+		<div class="card-subtitle">{{producto.codigo}}</div>
+		<div class="card-count" ion-fab>{{appMemoriaService.getCountArticulosByProducto(producto._id)}}</div>
+	</ion-card>
+	
+	<div class="separador"></div>
+
 	<ion-fab right bottom>
-		<button ion-fab (click)="addProducto()"><ion-icon name="md-add-circle"></ion-icon></button>
+		<button ion-fab (click)="navigateToAddArticuloPage()"><ion-icon name="add"></ion-icon></button>
 	</ion-fab>
 
 </ion-content>
