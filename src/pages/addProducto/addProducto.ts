@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AppMemoriaService } from './../../services/memoria.service';
@@ -14,13 +14,17 @@ export class AddProductosPage {
 	@Input() descripcion: string;
 	private codigo: string;
 	private imagen: string;
+	private saving = this.loadingCtrl.create({
+		content: 'Guardando...'
+	});
 
 	constructor(
-		public navCtrl: NavController, 
+		public navCtrl: NavController,
+		private loadingCtrl: LoadingController,
 		private appMemoriaService: AppMemoriaService, 
 		private barcodeScanner: BarcodeScanner,
 		private camera: Camera
-	) {}
+		) {}
 
 	private goBack () {
 		this.navCtrl.pop();
@@ -52,17 +56,19 @@ export class AddProductosPage {
 	}
 
 	private guardar () {
+		this.saving.present();
 		this.appMemoriaService.addProducto({
 			nombre: this.nombre,
 			descripcion: this.descripcion,
 			codigo: this.codigo,
 			imagen: this.imagen
 		})
-        .subscribe((producto: Object) => {
-            this.goBack();
-        }, err => {
-            console.log('error', err);
-        });
+		.subscribe((producto: Object) => {
+			this.saving.dismiss();
+			this.goBack();
+		}, err => {
+			console.log('error', err);
+		});
 	}
 
 	private validate () {

@@ -16,23 +16,26 @@
 
 	<ion-list>
 		<ion-item>
-			<ion-label floating>Nombre</ion-label>
+			<ion-label stacked>Nombre</ion-label>
 			<ion-input type="text" [(ngModel)]="nombre"></ion-input>
 		</ion-item>
 
 		<ion-item>
-			<ion-label floating>Descripcion</ion-label>
+			<ion-label stacked>Descripcion</ion-label>
 			<ion-input type="text" [(ngModel)]="descripcion"></ion-input>
 		</ion-item>
 
-		<button ion-item (click)="loadCodigo()">
-			<span ></span>
+		<ion-item (click)="loadCodigo()">
+			<ion-icon name="barcode"></ion-icon>
 			{{ codigo ? codigo : "Codigo" }}
-		</button>
-
-		<ion-item>
-			<img src="{{imagen ? 'data:image/jpeg;base64,' + imagen : 'http://via.placeholder.com/350x150'}}" (click)="loadImagen()">
 		</ion-item>
+
+		<ion-item (click)="loadImagen()">
+			<ion-icon name="images"></ion-icon>
+			Imagen
+		</ion-item>
+
+		<img ion-item *ngIf="imagen" src="{{imagen ? 'data:image/jpeg;base64,' + imagen : 'http://via.placeholder.com/350x150'}}" (click)="loadImagen()">
 
 	</ion-list>
 	<button ion-button color="secondary" (click)="guardar()" [disabled]="!validate()">Guardar</button>

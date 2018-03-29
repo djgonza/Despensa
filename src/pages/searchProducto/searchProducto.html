@@ -1,0 +1,24 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Buscar Producto</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+
+	<ion-item (click)="loadCodigo()">
+		<ion-icon name="barcode"></ion-icon>
+		{{ filter ? filter : "Codigo" }}
+	</ion-item>
+
+	<ion-card *ngFor="let producto of appMemoriaService.productos 
+	| async
+	| filterByName : 'codigo' : filter
+	" (click)="navigateToArticulosPage(producto['_id'])">
+	<img src="{{ config.serverUrl + producto.imagen}}">
+	<div class="card-title">{{producto.nombre}}</div>
+	<div class="card-subtitle">{{producto.codigo}}</div>
+	<div class="card-count" ion-fab>{{appMemoriaService.getCountArticulosByProducto(producto._id)}}</div>
+</ion-card>
+
+</ion-content>

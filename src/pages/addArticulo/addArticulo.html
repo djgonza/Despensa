@@ -14,11 +14,13 @@
 <ion-content>
 	<ion-list>
 		<ion-item>
-			<ion-label color="primary" stacked>Ubicacion</ion-label>
-			<ion-input type="text" [(ngModel)]="ubicacion"></ion-input>
+			<ion-label>Ubicacion</ion-label>
+			<ion-select [(ngModel)]="ubicacion">
+				<ion-option *ngFor="let ubicacion of appMemoriaService.ubicaciones | async" value="{{ubicacion['_id']}}">{{ubicacion['nombre']}}</ion-option>
+			</ion-select>
 		</ion-item>
 		<ion-item>
-			<ion-label color="primary" stacked>Fecha Caducidad</ion-label>
+			<ion-label stacked>Fecha Caducidad</ion-label>
 			<ion-input type="date" [(ngModel)]="fechaCaducidad"></ion-input>
 		</ion-item>
 		<ion-item>
