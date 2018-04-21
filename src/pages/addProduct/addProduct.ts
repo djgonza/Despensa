@@ -86,7 +86,7 @@ export class AddProductPage {
 		if (!this.code) {
 			return false;
 		}
-		if (!this.imagen) {
+		if (!this.image) {
 			return false;
 		}
 		return true;
