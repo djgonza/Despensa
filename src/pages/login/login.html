@@ -1,0 +1,33 @@
+<ion-content class="login">
+	<ion-grid class="logo"></ion-grid>
+	<ion-grid>
+		<ion-row class="input-row">
+			<ion-col col-2>
+				<ion-icon name="ios-person"></ion-icon>
+			</ion-col>
+			<ion-col col-9>
+				<input type="text" placeholder="Nombre" [(ngModel)]="name">
+			</ion-col>
+		</ion-row>
+		<ion-row class="input-row">
+			<ion-col col-2>
+				<ion-icon name="key"></ion-icon>
+			</ion-col>
+			<ion-col col-9>
+				<input [(ngModel)]="secret" placeholder="Contraseña" type="password">
+			</ion-col>
+		</ion-row>
+		<ion-row class="row-center">
+			<button [ngClass]="className" class="acceder" ion-button (click)="login()">
+				<label></label>
+			</button>
+		</ion-row>
+		<ion-row>
+			<div class="text-center" style="width: 100%;">Aun no tienes cuenta, <span class="registrate">¡Registrate!</span></div>
+		</ion-row>
+		<button ion-button (click)="addImage()">
+			Get Image
+		</button>
+	</ion-grid>
+</ion-content>
+

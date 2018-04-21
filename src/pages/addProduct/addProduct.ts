@@ -2,18 +2,19 @@ import { Component, Input } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AppMemoriaService } from './../../services/memoria.service';
+import { MemoryService } from './../../services/memory.service';
+import { GaleyPage } from './../galery/galery';
 
 @Component({
-	selector: 'page-add-productos',
-	templateUrl: 'addProducto.html'
+	selector: 'page-add-product',
+	templateUrl: 'addProduct.html'
 })
-export class AddProductosPage {
+export class AddProductPage {
 
 	@Input() nombre: string;
 	@Input() descripcion: string;
-	private codigo: string;
-	private imagen: string;
+	private code: string;
+	private image: string;
 	private saving = this.loadingCtrl.create({
 		content: 'Guardando...'
 	});
@@ -21,7 +22,7 @@ export class AddProductosPage {
 	constructor(
 		public navCtrl: NavController,
 		private loadingCtrl: LoadingController,
-		private appMemoriaService: AppMemoriaService, 
+		private memoryService: MemoryService, 
 		private barcodeScanner: BarcodeScanner,
 		private camera: Camera
 		) {}
@@ -30,10 +31,14 @@ export class AddProductosPage {
 		this.navCtrl.pop();
 	}
 
-	private loadCodigo () {
+	private openGalery () {
+		this.navCtrl.push(GaleyPage);
+	}
+
+	private loadCode () {
 		this.barcodeScanner.scan().then((barcodeData) => {
  			// Success! Barcode data is here
- 			this.codigo = barcodeData.text;
+ 			this.code = barcodeData.text;
  		}, (err) => {
     		// An error occurred
     	});
@@ -49,14 +54,14 @@ export class AddProductosPage {
 		}
 
 		this.camera.getPicture(options).then((imageData) => {
-			this.imagen = imageData;
+			this.image = imageData;
 		}, (err) => {
 			console.log(err);
 		});
 	}
 
 	private guardar () {
-		this.saving.present();
+		/*this.saving.present();
 		this.appMemoriaService.addProducto({
 			nombre: this.nombre,
 			descripcion: this.descripcion,
@@ -68,7 +73,7 @@ export class AddProductosPage {
 			this.goBack();
 		}, err => {
 			console.log('error', err);
-		});
+		});*/
 	}
 
 	private validate () {
@@ -78,7 +83,7 @@ export class AddProductosPage {
 		if (!this.descripcion) {
 			return false;
 		}
-		if (!this.codigo) {
+		if (!this.code) {
 			return false;
 		}
 		if (!this.imagen) {

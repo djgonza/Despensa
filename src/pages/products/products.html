@@ -4,6 +4,35 @@
 	</ion-navbar>
 </ion-header>
 
+<ion-content>
+	<ion-row>
+		<ion-col col-6 *ngFor="let product of memoryService.get('products') | async">
+			<ion-card>
+				<img src="http://via.placeholder.com/1000x1000"/>
+				<ion-card-content>
+					<ion-card-title>
+						{{product.name}}
+					</ion-card-title>
+					<p class="code">
+						{{product.code}}
+					</p>
+				</ion-card-content>
+			</ion-card>
+		</ion-col>
+	</ion-row>
+	<ion-fab right bottom>
+		<button ion-fab (click)="navigateToAddProduct()">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
+</ion-content>
+
+<!-- <ion-header>
+	<ion-navbar>
+		<ion-title>Productos</ion-title>
+	</ion-navbar>
+</ion-header>
+
 <ion-content class="card-background-page">
 
 	<ion-card *ngIf="appMemoriaService.productosCount == 0">
@@ -30,4 +59,4 @@
 		<button ion-fab (click)="navigateToAddArticuloPage()"><ion-icon name="add"></ion-icon></button>
 	</ion-fab>
 
-</ion-content>
+</ion-content> -->

@@ -14,7 +14,20 @@
 
 <ion-content padding>
 
-	<ion-list>
+	<ion-card>
+		<img src="{{image ? 'data:image/jpeg;base64,' + image : 'http://via.placeholder.com/1000x1000'}}" (click)="openGalery()">
+		<ion-card-content>
+			<ion-card-title>
+				<input class="input" type="text" [(ngModel)]="nombre" placeholder="Nombre">
+			</ion-card-title>
+			<p class="code">
+				<input class="input" (click)="loadCode()" type="text" [(ngModel)]="code" placeholder="Codigo">
+			</p>
+			<button right ion-button (click)="guardar()" [disabled]="!validate()">Guardar</button>
+		</ion-card-content>
+	</ion-card>
+
+	<!-- <ion-list>
 		<ion-item>
 			<ion-label stacked>Nombre</ion-label>
 			<ion-input type="text" [(ngModel)]="nombre"></ion-input>
@@ -37,7 +50,7 @@
 
 		<img ion-item *ngIf="imagen" src="{{imagen ? 'data:image/jpeg;base64,' + imagen : 'http://via.placeholder.com/350x150'}}" (click)="loadImagen()">
 
-	</ion-list>
-	<button ion-button color="secondary" (click)="guardar()" [disabled]="!validate()">Guardar</button>
+	</ion-list> -->
+	
 
 </ion-content>

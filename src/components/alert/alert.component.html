@@ -1,0 +1,4 @@
+<div class="messageContainer">
+	<div class="message" *ngFor="let message of alertService.getMessages() | async">{{message}}</div>
+</div>
+

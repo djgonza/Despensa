@@ -1,6 +1,7 @@
 export default
 {
-	"serverUrl": "https://despensa-rest.herokuapp.com/"
+	"tokenApi": "http://localhost:3600/",
+	"despensaApi": "http://localhost:3000/"
 }
 
 //"https://despensa-rest.herokuapp.com/"

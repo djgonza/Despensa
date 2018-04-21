@@ -1,0 +1,73 @@
+@font-face {
+	font-family: light;
+	src: url("../assets/fonts/Open_Sans/OpenSans-Light.ttf");
+}
+
+@font-face {
+	font-family: italic;
+	src: url("../assets/fonts/Open_Sans/OpenSans-LightItalic.ttf");
+}
+
+@font-face {
+	font-family: regular;
+	src: url("../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+ion-card-title {
+	font-family: 'light', sans-serif;
+	font-size: 1.4rem !important;
+}
+
+.code {
+	font-family: 'italic', sans-serif;
+	font-size: 1.4rem !important;
+}
+
+.center-colum-content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+.card-background-page {
+
+	ion-card {
+		position: relative;
+		text-align: center;
+	}
+
+	.card-title {
+		position: absolute;
+		top: 65%;
+		font-size: 2.0em;
+		width: 100%;
+		font-weight: bold;
+		color: #fff;
+		text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.3);
+	}
+
+	.card-subtitle {
+		font-size: 1.0em;
+		position: absolute;
+		top: 75%;
+		width: 100%;
+		color: #fff;
+		text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.3);
+	}
+
+	.card-count {
+		font-size: 2em;
+		position: absolute;
+		top: 78%;
+		right: 3%;
+		color: #fff;
+		text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.3);
+	}
+
+}
+
+.separador {
+	height: 15%;
+}
