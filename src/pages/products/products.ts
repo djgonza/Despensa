@@ -26,9 +26,14 @@ export class ProductsPage implements OnInit {
 	}
 
 	private getProductImage (imageId: string): string {
-		if (imageId)
-			return this.memoryService.getImagePathById(imageId);
-		else 
+		if (imageId) {
+			var img = this.memoryService.getImagePathById(imageId);
+			if (img) {
+				return img
+			}else{
+				 return 'http://via.placeholder.com/1000x1000';
+			}
+		} else 
 			return 'http://via.placeholder.com/1000x1000';
 	}
 

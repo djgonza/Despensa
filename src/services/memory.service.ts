@@ -173,9 +173,15 @@ export class MemoryService {
 
 	//Images
 	public getImagePathById (imageId: string): string {
-		return this.getBS('images').getValue().find(image => {
+		var img = this.getBS('images').getValue().find(image => {
 			return image['_id'] == imageId;
-		})['location'];
+		})
+		if (img) {
+			return img['location'];
+		}else {
+			return null;
+		}
+		
 	}
 
 	// public getImagePathByIdProduct (productId: string): Observable<string> {
