@@ -35,7 +35,6 @@ export class LoginPage {
 	}
 	
 	private login () {
-		console.log(environment);
 		this.className = 'accediendo';
 		this.http.getRefreshToken({
 			name: this.name,

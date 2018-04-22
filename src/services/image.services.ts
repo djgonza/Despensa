@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
+import { tap, map } from 'rxjs/operators';
+import { Observable } from "rxjs/Observable";
 import { HttpService } from './http.service';
 import { MemoryService } from './memory.service';
+import { environment } from './../environment/environment';
 
 @Injectable()
 export class ImageService {
@@ -9,26 +12,25 @@ export class ImageService {
 		private http: HttpService, 
 		private memory: MemoryService) {}
 
-	public addImages (image: object): void {
-		// let file: File = fileList[0];
-  //       let formData:FormData = new FormData();
-  //       formData.append('uploadFile', file, file.name);
-  //       let headers = new Headers();
-  //       /** In Angular 5, including the header Content-Type can invalidate your request */
-  //       headers.append('Content-Type', 'multipart/form-data');
-  //       headers.append('Accept', 'application/json');
-  //       let options = new RequestOptions({ headers: headers });
-  //       this.http.post(`${this.apiEndPoint}`, formData, options)
-  //           .map(res => res.json())
-  //           .catch(error => Observable.throw(error))
-  //           .subscribe(
-  //               data => console.log('success'),
-  //               error => console.log(error)
-  //           )
+	public addImage (image: Blob): Observable<object> {
+
+		let formData:FormData = new FormData();
+		formData.append('image', image, "image");
+
+		return this.http.post(environment.imagesApi + '/uploadImage', formData)
+		.pipe(
+			tap(res => {
+				this.memory.add(res, 'images');
+			})
+		);
 	}
 
-	public getImages (): void {
-
+	public getImages (): Observable<object[]> {
+		return this.http.get(environment.imagesApi + '/getAllByUser')
+		.pipe(
+			tap(res => {
+			this.memory.addMultiple(res, 'images');
+		}));
 	}
 
 	public updateImage (imageId: string, fields: object): void {

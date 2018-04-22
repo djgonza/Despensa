@@ -14,11 +14,16 @@
 
 <ion-content padding>
 
-	<ion-card>
-		<img src="{{image ? 'data:image/jpeg;base64,' + image : 'http://via.placeholder.com/1000x1000'}}" (click)="openGalery()">
+	<div *ngIf="selectingImage">
+		<galery (selectedImage)="addImage($event)"></galery>
+	</div>
+	<ion-card *ngIf="!selectingImage">
+		<div>
+			<img src="{{image ? image.location : 'http://via.placeholder.com/1000x1000'}}" height="100%" width="100%" (click)="openGalery()">
+		</div>
 		<ion-card-content>
 			<ion-card-title>
-				<input class="input" type="text" [(ngModel)]="nombre" placeholder="Nombre">
+				<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre">
 			</ion-card-title>
 			<p class="code">
 				<input class="input" (click)="loadCode()" type="text" [(ngModel)]="code" placeholder="Codigo">
@@ -26,31 +31,5 @@
 			<button right ion-button (click)="guardar()" [disabled]="!validate()">Guardar</button>
 		</ion-card-content>
 	</ion-card>
-
-	<!-- <ion-list>
-		<ion-item>
-			<ion-label stacked>Nombre</ion-label>
-			<ion-input type="text" [(ngModel)]="nombre"></ion-input>
-		</ion-item>
-
-		<ion-item>
-			<ion-label stacked>Descripcion</ion-label>
-			<ion-input type="text" [(ngModel)]="descripcion"></ion-input>
-		</ion-item>
-
-		<ion-item (click)="loadCodigo()">
-			<ion-icon name="barcode"></ion-icon>
-			{{ codigo ? codigo : "Codigo" }}
-		</ion-item>
-
-		<ion-item (click)="loadImagen()">
-			<ion-icon name="images"></ion-icon>
-			Imagen
-		</ion-item>
-
-		<img ion-item *ngIf="imagen" src="{{imagen ? 'data:image/jpeg;base64,' + imagen : 'http://via.placeholder.com/350x150'}}" (click)="loadImagen()">
-
-	</ion-list> -->
-	
 
 </ion-content>

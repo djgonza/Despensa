@@ -20,7 +20,6 @@ export class ProductService {
 		return this.http.post(environment.despensaRestApi + '/product/save', product)
 		.pipe(
 			tap(res => {
-				console.log('products service map add product', res);
 			this.memory.add(res, 'products');
 			})
 		)
@@ -30,7 +29,6 @@ export class ProductService {
 	public getProducts (): Observable<object[]>  {
 		return this.http.get(environment.despensaRestApi + '/product/get').pipe(
 			tap(res => {
-			console.log('products service map get products', res);
 			this.memory.addMultiple(res, 'products');
 		}))
 		.catch((err: any) => Observable.throw(this.errorHandler(err)));
@@ -42,7 +40,6 @@ export class ProductService {
 			fields: fields
 		}).pipe(
 			tap(res => {
-			console.log('products service map update product', res);
 			this.memory.update(res, 'products');
 		}))
 		.catch((err: any) => Observable.throw(this.errorHandler(err)));
@@ -52,11 +49,9 @@ export class ProductService {
 		return this.http.delete(environment.despensaRestApi + '/product/delete' + productId)
 		.pipe(
 			tap(res => {
-				console.log('products service map delete product', res);
 				this.memory.delete(productId, 'products');
 			}),
 			catchError(err => {
-				console.log("err catch in product service", err);
 				return new ErrorObservable('Something bad happened; please try again later.');
 			})
 		)

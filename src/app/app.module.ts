@@ -14,11 +14,13 @@ import { HttpService } from './../services/http.service';
 import { ProductService } from './../services/product.service';
 import { ArticleService } from './../services/article.service';
 import { LocationService } from './../services/location.service';
+import { ImageService } from './../services/image.services';
 
 import { AlertComponent } from './../components/alert/alert.component';
 import { TabsPage } from '../pages/tabs/tabs';
-import { GaleyPage } from '../pages/galery/galery';
+import { Galery } from '../components/galery/galery';
 import { ProductsPage } from '../pages/products/products';
+import { GaleryPage } from './../pages/galery/galery.page';
 // import { ArticulosPage, FilterByProducto, TimeToEnd } from '../pages/articulos/articulos';
 import { AddProductPage } from '../pages/addProduct/addProduct';
 // import { AddArticulo } from '../pages/addArticulo/addArticulo';
@@ -36,11 +38,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		MyApp,
 		AlertComponent,
 		TabsPage,
-		GaleyPage,
+		Galery,
 		OrderByDate,
 		LoginPage,
 		ProductsPage,
 		AddProductPage,
+		GaleryPage,
 		// ArticulosPage,
 		// AddArticulo,
 		// AddUbicacion,
@@ -58,9 +61,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	entryComponents: [
 		MyApp,
 		TabsPage,
-		GaleyPage,
 		ProductsPage,
 		AddProductPage,
+		GaleryPage,
 		// ArticulosPage,
 		// AddArticulo,
 		// AddUbicacion,
@@ -79,6 +82,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		BarcodeScanner,
 		Camera,
 		AlertService,
+		ImageService,
 		MemoryService,
 		HttpService,
 		ProductService,

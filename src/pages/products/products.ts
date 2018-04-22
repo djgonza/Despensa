@@ -1,5 +1,4 @@
 import { Component, OnInit, Pipe, PipeTransform, Injectable } from '@angular/core';
-import { LoadingController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { ProductService } from './../../services/product.service';
 import { MemoryService } from './../../services/memory.service';
@@ -18,35 +17,27 @@ export class ProductsPage implements OnInit {
 	constructor(
 		public navCtrl: NavController,
 		private productService: ProductService,
-		private memoryService: MemoryService,
-		private loadingCtrl: LoadingController
+		private memoryService: MemoryService
 		) {}
 
 	ngOnInit() { 
-		this.getProducts();
-		console.log(this.memoryService);
+		//this.getProducts();
+		//console.log(this.memoryService);
 	}
 
-	private presentLoading() {
-		this.loader = this.loadingCtrl.create({
-			content: 'Leyendo los productos'
-		});
-		this.loader.present();
-	}
-
-	private hideLoading () {
-		this.loader.dismiss();
+	private getProductImage (imageId: string): string {
+		if (imageId)
+			return this.memoryService.getImagePathById(imageId);
+		else 
+			return 'http://via.placeholder.com/1000x1000';
 	}
 
 	private getProducts () {
-		this.presentLoading();
 		this.productService.getProducts()
 		.subscribe(products => {
 			console.log('getProducts', products);
-			this.hideLoading();
 		}, err => {
 			console.log(err);
-			this.hideLoading();
 		});
 	}
 

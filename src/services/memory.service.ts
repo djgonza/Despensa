@@ -10,12 +10,11 @@ export class MemoryService {
 	private _articles: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
 	private _images: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
 	private _locations: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
-	private _selectedProduct: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-	private _selectedArticle: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+	private _selectedProduct: BehaviorSubject<object> = new BehaviorSubject<object>(null);
+	private _selectedArticle: BehaviorSubject<object> = new BehaviorSubject<object>(null);
+	private _selectedImage: BehaviorSubject<object> = new BehaviorSubject<object>({location: 'http://via.placeholder.com/1000x1000'});
 
-	constructor () {}
-
-	public init () {
+	constructor () {
 		console.log(this);
 	}
 
@@ -40,15 +39,28 @@ export class MemoryService {
 	/*
 	@field: nombre del array de objetos
 	*/
-	private getSelectBS (field: string): BehaviorSubject<string> {
+	private getSelectBS (field: string): BehaviorSubject<object> {
 		switch (field) {
-			case "selectProduct":
+			case "selectedProduct":
 				return this._selectedProduct;
-			case "selectArticles":
+			case "selectedArticles":
 				return this._selectedArticle;
+			case "selectedImage":
+				return this._selectedImage;
 			default:
-			break;
+				return;
 		}
+	}
+
+	public getSelectedItemById (id: string, field: string) {
+		var items = this.getBS(field).getValue();
+		return Observable.create(observer => {
+			var item = items.find(item => {
+				return item['_id'] == id;
+			});
+			observer.next(item);
+		});
+		
 	}
 
 	/*
@@ -61,7 +73,7 @@ export class MemoryService {
 	/*
 	@field: nombre del array de objetos
 	*/
-	public getSelect (field: string): Observable<string> {
+	public getSelect (field: string): Observable<object> {
 		return this.getSelectBS(field).asObservable();
 	}
 
@@ -80,8 +92,8 @@ export class MemoryService {
 		bs.next(values);
 	}
 
-	public addSelect (id: string, field: string): void {
-		this.getSelectBS(field).next(id);
+	public addSelect (item: object, field: string): void {
+		this.getSelectBS(field).next(item);
 	}
 
 	/* 
@@ -160,13 +172,19 @@ export class MemoryService {
 	}
 
 	//Images
-	public getImagePathById (imageId: string): Observable<string> {
-		var image = this.getBS('images').getValue().filter(image => {
-			return image['id'] == imageId;
-		});
-		return Observable.create(observer => {
-			observer.next(image['path']);
-		});
+	public getImagePathById (imageId: string): string {
+		return this.getBS('images').getValue().find(image => {
+			return image['_id'] == imageId;
+		})['location'];
 	}
+
+	// public getImagePathByIdProduct (productId: string): Observable<string> {
+	// 	var image = this.getBS('images').getValue().filter(image => {
+	// 		return image['prod'] == imageId;
+	// 	});
+	// 	return Observable.create(observer => {
+	// 		observer.next(image['path']);
+	// 	});
+	// }
 
 }

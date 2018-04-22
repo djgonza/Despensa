@@ -23,9 +23,9 @@ export class HttpService {
 			concatMap(res => {
 				return this.http.get(url, this.getHeader(res['accessToken'])).pipe(
 					catchError(this.handleError)
-				);
+					);
 			})
-		);
+			);
 	}
 
 	//Peticiones post
@@ -35,9 +35,9 @@ export class HttpService {
 			concatMap(res => {
 				return this.http.post(url, body, this.getHeader(res['accessToken'])).pipe(
 					catchError(this.handleError)
-				);
+					);
 			})
-		);
+			);
 	}
 
 	//Peticiones put
@@ -47,9 +47,9 @@ export class HttpService {
 			concatMap(res => {
 				return this.http.put(url, body, this.getHeader(res['accessToken'])).pipe(
 					catchError(this.handleError)
-				);
+					);
 			})
-		);
+			);
 	}
 
 	//Peticiones delete
@@ -59,9 +59,9 @@ export class HttpService {
 			concatMap(res => {
 				return this.http.delete(url, this.getHeader(res['accessToken'])).pipe(
 					catchError(this.handleError)
-				);
+					);
 			})
-		);
+			);
 	}
 
 	public getRefreshToken (body: object): Observable<object> {
@@ -109,7 +109,7 @@ export class HttpService {
 		return {
 			headers: {
 				'Authorization': token,
-				'Content-Type': 'application/json'
+				//'Content-Type': 'application/json'
 			}
 		}
 	}
