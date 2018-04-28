@@ -6,7 +6,7 @@
 				<ion-icon name="ios-person"></ion-icon>
 			</ion-col>
 			<ion-col col-9>
-				<input type="text" placeholder="Nombre" [(ngModel)]="name">
+				<input class="input-login" type="text" placeholder="Nombre" [(ngModel)]="name">
 			</ion-col>
 		</ion-row>
 		<ion-row class="input-row">
@@ -14,7 +14,7 @@
 				<ion-icon name="key"></ion-icon>
 			</ion-col>
 			<ion-col col-9>
-				<input [(ngModel)]="secret" placeholder="Contraseña" type="password">
+				<input class="input-login" [(ngModel)]="secret" placeholder="Contraseña" type="password">
 			</ion-col>
 		</ion-row>
 		<ion-row class="row-center">
@@ -25,9 +25,6 @@
 		<ion-row>
 			<div class="text-center" style="width: 100%;">Aun no tienes cuenta, <span class="registrate">¡Registrate!</span></div>
 		</ion-row>
-		<button ion-button (click)="addImage()">
-			Get Image
-		</button>
 	</ion-grid>
 </ion-content>
 

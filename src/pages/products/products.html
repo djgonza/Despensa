@@ -5,10 +5,36 @@
 </ion-header>
 
 <ion-content>
-	<ion-row>
-		<ion-col col-6 *ngFor="let product of memoryService.get('products') | async">
+	<div *ngIf="selectingImage">
+		<galery (selectedImage)="addImage($event)"></galery>
+	</div>
+	<ion-row *ngIf="!selectingImage">
+		<!--new -->
+		<ion-col col-6 *ngIf="createNewProduct">
 			<ion-card>
-				<img src="{{getProductImage(product.image)}}"/>
+				<img src="{{image ? image.location : 'http://via.placeholder.com/1000x1000'}}" (click)="openGalery()" />
+				<ion-card-content>
+					<ion-card-title>
+						<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre">
+					</ion-card-title>
+					<p class="code">
+						<input class="input" (click)="loadCode()" type="text" [(ngModel)]="code" placeholder="Codigo">
+					</p>
+					<ion-row>
+						<ion-col col-6>
+							<button class="action-button" right ion-button (click)="save()" [disabled]="!validate()">Guardar</button>
+						</ion-col>
+						<ion-col col-6>
+							<button class="action-button" right ion-button color="danger" (click)="cancel()">Cancelar</button>
+						</ion-col>
+					</ion-row>
+				</ion-card-content>
+			</ion-card>
+		</ion-col>
+		<!-- for -->
+		<ion-col col-6 *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory()">
+			<ion-card (click)="navigateToUnits(product._id)">
+				<img src="{{getImageLocation(product.image)}}"/>
 				<ion-card-content>
 					<ion-card-title>
 						{{product.name}}
@@ -21,42 +47,8 @@
 		</ion-col>
 	</ion-row>
 	<ion-fab right bottom>
-		<button ion-fab (click)="navigateToAddProduct()">
+		<button ion-fab (click)="openCreateNewProduct()">
 			<ion-icon name="add"></ion-icon>
 		</button>
 	</ion-fab>
 </ion-content>
-
-<!-- <ion-header>
-	<ion-navbar>
-		<ion-title>Productos</ion-title>
-	</ion-navbar>
-</ion-header>
-
-<ion-content class="card-background-page">
-
-	<ion-card *ngIf="appMemoriaService.productosCount == 0">
-		<ion-card-content>
-			No hay elementos que mostrar.
-		</ion-card-content>
-	</ion-card>
-
-	<ion-searchbar (ionInput)="setSearchFilter($event)"></ion-searchbar>
-
-	<ion-card *ngFor="let producto of appMemoriaService.productos 
-	| async
-	| filterByName : 'nombre' : filter
-	" (click)="navigateToArticulosPage(producto['_id'])">
-		<img src="{{ config.serverUrl + producto.imagen}}">
-		<div class="card-title">{{producto.nombre}}</div>
-		<div class="card-subtitle">{{producto.codigo}}</div>
-		<div class="card-count" ion-fab>{{appMemoriaService.getCountArticulosByProducto(producto._id)}}</div>
-	</ion-card>
-	
-	<div class="separador"></div>
-
-	<ion-fab right bottom>
-		<button ion-fab (click)="navigateToAddArticuloPage()"><ion-icon name="add"></ion-icon></button>
-	</ion-fab>
-
-</ion-content> -->

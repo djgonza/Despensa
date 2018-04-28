@@ -15,20 +15,20 @@ import { ProductService } from './../services/product.service';
 import { ArticleService } from './../services/article.service';
 import { LocationService } from './../services/location.service';
 import { ImageService } from './../services/image.services';
+import { LoaderService } from './../services/loader.service';
 
 import { AlertComponent } from './../components/alert/alert.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Galery } from '../components/galery/galery';
+import { CategoriesPage } from '../pages/categories/categories';
 import { ProductsPage } from '../pages/products/products';
 import { GaleryPage } from './../pages/galery/galery.page';
-// import { ArticulosPage, FilterByProducto, TimeToEnd } from '../pages/articulos/articulos';
-import { AddProductPage } from '../pages/addProduct/addProduct';
-// import { AddArticulo } from '../pages/addArticulo/addArticulo';
-// import { AddUbicacion } from '../pages/addUbicacion/addUbicacion';
-// import { SearchProductosPage } from '../pages/searchProducto/searchProducto';
 import { LoginPage } from '../pages/login/login';
+import { UnitsPage, TimeToEnd } from '../pages/units/units';
+import { LocationsPage } from '../pages/locations/locations';
 
 import { OrderByDate } from '../pipes/orderByDate';
+import { Filter } from '../pipes/filter';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -40,17 +40,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		TabsPage,
 		Galery,
 		OrderByDate,
+		Filter,
+		TimeToEnd,
 		LoginPage,
+		UnitsPage,
+		CategoriesPage,
 		ProductsPage,
-		AddProductPage,
 		GaleryPage,
-		// ArticulosPage,
-		// AddArticulo,
-		// AddUbicacion,
-		// FilterByProducto,
-		// TimeToEnd,
-		// FilterByName,
-		// SearchProductosPage
+		LocationsPage
 	],
 	imports: [
 		BrowserModule,
@@ -61,14 +58,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	entryComponents: [
 		MyApp,
 		TabsPage,
+		CategoriesPage,
 		ProductsPage,
-		AddProductPage,
 		GaleryPage,
-		// ArticulosPage,
-		// AddArticulo,
-		// AddUbicacion,
-		// SearchProductosPage,
-		LoginPage
+		LoginPage,
+		UnitsPage,
+		LocationsPage
 	],
 	providers: [
 		StatusBar,
@@ -87,7 +82,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		HttpService,
 		ProductService,
 		ArticleService,
-		LocationService
+		LocationService,
+		LoaderService
 	]
 })
 export class AppModule {}

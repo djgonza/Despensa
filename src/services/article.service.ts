@@ -9,24 +9,24 @@ export class ArticleService {
 		private http: HttpService, 
 		private memory: MemoryService) {}
 
-	public addArticle (article: object): void {
+	// public addArticle (article: object): void {
 
-	}
+	// }
 
-	public getArticles (): void {
+	// public getArticles (): void {
 
-	}
+	// }
 
-	public updateArticle (articleId: string, fields: object): void {
+	// public updateArticle (articleId: string, fields: object): void {
 
-	}
+	// }
 
-	public deleteArticle (articleId: string): void {
+	// public deleteArticle (articleId: string): void {
 
-	}
+	// }
 
-	public updateArticuloCantidad (articulo): void {
+	// public updateArticuloCantidad (articulo): void {
 		
-	}
+	// }
 
 }

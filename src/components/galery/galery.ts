@@ -5,7 +5,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from "rxjs/Observable";
 import { ImageService } from './../../services/image.services';
 import { MemoryService } from './../../services/memory.service';
-import { LoadingController } from 'ionic-angular';
+import { LoaderService } from './../../services/loader.service';
+import * as Constants from './../../models/constants';
 
 @Component({
 	selector: 'galery',
@@ -15,14 +16,13 @@ export class Galery implements OnInit {
 
 	private imageToUpload: string;
 	@Output() selectedImage = new EventEmitter<object>();
-	private loader;
 
 	constructor(
 		public navCtrl: NavController,
 		private camera: Camera,
 		private imageService: ImageService,
-		private memoryService: MemoryService,
-		private loadingController: LoadingController
+		private memory: MemoryService,
+		private loader: LoaderService
 		) {
 	}
 
@@ -33,16 +33,16 @@ export class Galery implements OnInit {
 		console.log(e);
 	}
 
+	private getImages () {
+		return this.memory.get(Constants.IMAGE);
+	}
+
 	private openLoader () {
-		this.loader = this.loadingController.create({
-			content: '<div class="loader-subiendo-imagen">Subiendo Imagen</div>'
-		});
-		this.loader.present();
+		this.loader.addMessage("Subiendo Imagen");
 	}
 
 	private closeLoader () {
-		this.loader.dismiss();
-		this.loader = null;
+		this.loader.removeMessage("Subiendo Imagen");
 	}
 
 	private selectImage(image: object) {

@@ -6,6 +6,13 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { RequestOptions, RequestOptionsArgs, RequestMethod, Headers } from '@angular/http';
 import { catchError, concatMap, tap } from 'rxjs/operators';
 import { environment } from './../environment/environment';
+import { MemoryService } from './memory.service';
+import * as Constants from './../models/constants';
+import { Category } from './../models/category';
+import { Product } from './../models/product';
+import { Unit } from './../models/unit';
+import { Locations } from './../models/locations';
+import { Image } from './../models/image';
 
 @Injectable()
 export class HttpService {
@@ -14,51 +21,63 @@ export class HttpService {
 	private _refreshToken: BehaviorSubject<string> = new BehaviorSubject<string>('');
 	private _accessToken: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private memory: MemoryService) { }
 
-	//Peticiones get
-	public get(url: string): Observable<any> {
+	public get(field: string, url: string): Observable<any> {
 		return this.http.get(this.tokenApi + '/token/accessToken', this.getHeader(this._refreshToken.getValue())).pipe(
 			catchError(this.handleError),
 			concatMap(res => {
 				return this.http.get(url, this.getHeader(res['accessToken'])).pipe(
-					catchError(this.handleError)
+					catchError(this.handleError),
+					tap(res => {
+						this.addMultipleToMemory(field, res);
+					})
 					);
 			})
 			);
 	}
 
 	//Peticiones post
-	public post(url: string, body: object): Observable<any> {
+	public post(field: string, url: string, body: object): Observable<any> {
 		return this.http.get(this.tokenApi + '/token/accessToken', this.getHeader(this._refreshToken.getValue())).pipe(
 			catchError(this.handleError),
 			concatMap(res => {
 				return this.http.post(url, body, this.getHeader(res['accessToken'])).pipe(
-					catchError(this.handleError)
+					catchError(this.handleError),
+					tap(res => {
+						this.addToMemory(field, res);
+					})
 					);
 			})
 			);
 	}
 
 	//Peticiones put
-	public put(url: string, body: object): Observable<any> {
+	public put(field: string, url: string, body: object): Observable<any> {
 		return this.http.get(this.tokenApi + '/token/accessToken', this.getHeader(this._refreshToken.getValue())).pipe(
 			catchError(this.handleError),
 			concatMap(res => {
 				return this.http.put(url, body, this.getHeader(res['accessToken'])).pipe(
-					catchError(this.handleError)
+					catchError(this.handleError),
+					tap(res => {
+						this.updateMemory(field, body);
+					})
 					);
 			})
 			);
 	}
 
 	//Peticiones delete
-	public delete(url: string): Observable<any> {
+	public delete(field: string,id: string, url: string): Observable<any> {
+		//TODO: pensarlo
 		return this.http.get(this.tokenApi + '/token/accessToken', this.getHeader(this._refreshToken.getValue())).pipe(
 			catchError(this.handleError),
 			concatMap(res => {
 				return this.http.delete(url, this.getHeader(res['accessToken'])).pipe(
-					catchError(this.handleError)
+					catchError(this.handleError),
+					tap(res => {
+						this.memory.delete(field, res);
+					})
 					);
 			})
 			);
@@ -112,6 +131,36 @@ export class HttpService {
 				//'Content-Type': 'application/json'
 			}
 		}
+	}
+
+	private addToMemory (field: string, object: object) {
+		this.memory.add(field, this.parseJsonToObject(field, object));
+	}
+
+	private addMultipleToMemory (field: string, object: object[]) {
+		object.forEach(item => {
+			this.addToMemory(field, item);
+		});
+	}
+
+	private updateMemory (field: string, object: object) {
+		this.memory.update(field, object);
+	}
+
+	private parseJsonToObject (field: string, jsonObject: object): object {
+		switch (field) {
+			case Constants.CATEGORY: return Object.assign(new Category, jsonObject);
+			case Constants.PRODUCT: return Object.assign(new Product, jsonObject);
+			case Constants.UNIT: return Object.assign(new Unit, jsonObject);
+			case Constants.LOCATION: return Object.assign(new Locations, jsonObject);
+			case Constants.IMAGE: return Object.assign(new Image, jsonObject);
+			default: return null;
+		}
+
+	}
+
+	private parseObjectToJson (object): string {
+		return JSON.stringify(object);
 	}
 
 }

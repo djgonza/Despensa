@@ -1,105 +1,55 @@
 import { Component, OnInit } from '@angular/core';
+
+import { CategoriesPage } from '../categories/categories';
 import { ProductsPage } from '../products/products';
-import { LoadingController } from 'ionic-angular';
-// import { AddUbicacion } from '../addUbicacion/addUbicacion';
-// import { SearchProductosPage } from '../searchProducto/searchProducto';
-
 import { GaleryPage } from './../galery/galery.page';
+import { LocationsPage } from './../locations/locations';
 
-import { ProductService } from './../../services/product.service';
-import { ImageService } from './../../services/image.services';
+import { HttpService } from './../../services/http.service';
+import { LoaderService } from './../../services/loader.service';
+
+import * as Constants from './../../models/constants';
 
 @Component({
 	templateUrl: 'tabs.html'
 })
 export class TabsPage implements OnInit {
 
-	private loader = null;
-	private loaderStep: number = 0;
-	private tab1Root = ProductsPage;
+	private tab1Root = CategoriesPage;
 	private tab2Root = GaleryPage;
-	private interval;
-	private leyendo = [];
-	// tab2Root = SearchProductosPage;
-	// tab3Root = AddUbicacion;
+	private tab3Root = LocationsPage;
 
-	constructor(private loadingCtrl: LoadingController,
-		private productService: ProductService,
-		private imageService: ImageService) {}
+	constructor(
+		private http: HttpService,
+		private loaderService: LoaderService) {}
 
-	ngOnInit() { 
+	ngOnInit() {
 
-		this.addLeyendoItem('Products');
-		this.productService.getProducts().subscribe(res => {
-			this.removeLeyendoItem('Products');
+		this.loaderService.addMessage("Leyendo Imagenes");
+		this.http.get(Constants.IMAGE, Constants.PATHS.images.getImages).subscribe(res => {
+			this.loaderService.removeMessage("Leyendo Imagenes");
 		});
 
-		this.addLeyendoItem('Images');
-		this.imageService.getImages().subscribe(res => {
-			this.removeLeyendoItem('Images');
+		this.loaderService.addMessage("Leyendo Categorias");
+		this.http.get(Constants.CATEGORY, Constants.PATHS.categories.getCategories).subscribe(res => {
+			this.loaderService.removeMessage("Leyendo Categorias");
 		});
 
-		//Interval para el loading
-		this.interval = setInterval(() => { 
-			this.changeLoandingContent ();
-			this.checkLeyendo();
-		}, 500);
-		this.presentLoading();
-
-	}
-
-	private addLeyendoItem (item: string) {
-		this.leyendo.push(item);
-	}
-
-	private removeLeyendoItem (item: string) {
-		this.leyendo.splice(this.leyendo.findIndex(item => {
-			return item == 'Productos'
-		}), 1);
-	}
-
-	private checkLeyendo() {
-		if (this.leyendo.length == 0) {
-			clearInterval(this.interval);
-			this.interval = null;
-			this.hideLoading();
-		}
-	}
-
-	private presentLoading() {
-		this.loader = this.loadingCtrl.create({
-			content: 'Cargando.'
+		this.loaderService.addMessage("Leyendo Productos");
+		this.http.get(Constants.PRODUCT, Constants.PATHS.products.getProducts).subscribe(res => {
+			this.loaderService.removeMessage("Leyendo Productos");
 		});
-		this.loader.present();
-	}
 
-	private hideLoading () {
-		this.loader.dismiss();
-		this.loader = null;
-	}
+		this.loaderService.addMessage("Leyendo Unidades");
+		this.http.get(Constants.UNIT, Constants.PATHS.units.getUnits).subscribe(res => {
+			this.loaderService.removeMessage("Leyendo Unidades");
+		});
 
-	private changeLoandingContent () {
+		this.loaderService.addMessage("Leyendo Ubicaciones");
+		this.http.get(Constants.LOCATION, Constants.PATHS.locations.getLocations).subscribe(res => {
+			this.loaderService.removeMessage("Leyendo Ubicaciones");
+		});
 
-		if (this.loader) {
-			switch (this.loaderStep) {
-				case 0:
-					this.loader.data.content = "Cargando.";
-					this.loaderStep = 1;
-					break;
-				case 1:
-					this.loader.data.content = "Cargando..";
-					this.loaderStep = 2;
-					break;
-				case 2:
-					this.loader.data.content = "Cargando...";
-					this.loaderStep = 0;
-					break;
-				default:
-					break;
-			}
-			
-		}
-		
 	}
 
 }

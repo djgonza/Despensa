@@ -1,15 +1,14 @@
 
 <ion-row>
-	<!--<input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.png">-->
+	<ion-fab right bottom>
+		<button ion-fab (click)="addImage()">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
 
-	<ion-col col-4 *ngFor="let image of memoryService.get('images') | async">
+	<ion-col col-4 *ngFor="let image of getImages() | async">
 		<ion-card (click)="selectImage(image)">
 			<img src="{{image.location}}"/>
 		</ion-card>
 	</ion-col>
 </ion-row>
-<ion-fab right bottom>
-	<button ion-fab (click)="addImage()">
-		<ion-icon name="add"></ion-icon>
-	</button>
-</ion-fab>

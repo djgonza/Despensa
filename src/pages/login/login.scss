@@ -8,6 +8,12 @@
 	src: url("../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
 }
 
+.input-login {
+	font-size: 3rem !important;
+	width: 100%;
+	border-bottom: 1px solid;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -50,15 +56,6 @@
 	left: 10%;
 	width: 45%;
 	height: 30%;
-}
-
-input
-{
-	background: transparent;
-	border: none;
-	font-size: 3rem;
-	width: 100%;
-	border-bottom: 1px solid;
 }
 
 .input-row {

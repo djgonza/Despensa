@@ -1,0 +1,38 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			Ubicaciones
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+
+		<ion-item *ngIf="isNew" class="active">
+			<h2>
+				<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre">
+			</h2>
+			<h2>
+				<button right ion-button (click)="create()" [disabled]="!validate()">Guardar</button>
+			</h2>
+		</ion-item>
+
+		<ion-item *ngFor="let location of getLocations() | async">
+			<h2>{{location.name}}</h2>
+		</ion-item>
+	</ion-list>
+	<ion-fab right bottom>
+		<button ion-fab (click)="openCreateNewLocation()">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
+	
+</ion-content>
+
+
+<!-- <ng-template #elseBlock>Alternate text while primary text is hidden</ng-template> -->
+
+
+

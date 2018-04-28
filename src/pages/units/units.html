@@ -1,0 +1,104 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>
+			Unidades
+		</ion-title>
+		<ion-buttons start>
+			<button ion-button (click)="goBack()">
+				<span ion-text color="primary" showWhen="ios">Cancel</span>
+				<ion-icon name="md-close"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content padding>
+
+	<ion-list *ngIf="isNew">
+		<ion-item>
+			<ion-label>Ubicacion</ion-label>
+			<ion-select [(ngModel)]="location">
+				<ion-option value="" selected disabled>Ninguna opcion seleccionada</ion-option>
+				<ion-option *ngFor="let location of getLocations() | async" value="{{location._id}}">{{location.name}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked>Fecha Caducidad</ion-label>
+			<ion-input type="date" [(ngModel)]="expirationDate"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked>Cantidad</ion-label>
+			<ion-input type="number" [(ngModel)]="quantity"></ion-input>
+		</ion-item>
+		<ion-item>
+			<button ion-button color="secondary" (click)="save()" [disabled]="!validate()">Guardar</button>
+			<button ion-button color="danger" (click)="cancel()">Cancelar</button>
+		</ion-item>
+	</ion-list>
+
+	<ion-list *ngIf="!isNew">
+		<ion-item *ngFor="let unit of getUnits() | async | filter : 'product' : getSelectedProduct()">
+			<h2>{{getLocationById(unit.location).name}}</h2>
+			<h2>{{unit.expirationDate | timeToEnd}}</h2>
+			<h2>{{unit.expirationDate | date: 'dd/MM/yyyy'}}</h2>
+			<div>
+				<button ion-button icon-only small (click)="addQuantityLess(unit)">
+					<ion-icon name="md-remove"></ion-icon>
+				</button>
+				{{unit.quantity}}
+				<button ion-button icon-only small (click)="addQuantityPlus(unit)">
+					<ion-icon name="md-add"></ion-icon>
+				</button>
+			</div>
+		</ion-item>
+	</ion-list>
+
+	<ion-fab right bottom>
+		<button ion-fab (click)="openCreateNewUnit()"><ion-icon name="add"></ion-icon></button>
+	</ion-fab>
+</ion-content>
+
+	<!-- <ion-card *ngIf="appMemoriaService.articulosCountByProducto() == 0">
+		<ion-card-content>
+			No hay elementos que mostrar.
+		</ion-card-content>
+	</ion-card>
+
+	<ion-list>
+		<ion-item *ngFor="
+		let articulo of appMemoriaService.articulos 
+		| async 
+		| filterByProducto: 'producto' : appMemoriaService.productoSeleccionado 
+		| orderByDate : 'fechaCaducidad';" [ngClass]="getClassByDate(articulo['fechaCaducidad'])">
+		<ion-row align-items-center>
+			<ion-col col-12>
+				<h2 text-center>{{appMemoriaService.getUbicacionNombreById(articulo.ubicacion)}}</h2>
+			</ion-col>
+			<ion-col col-7>
+				<h3 class="underline">Fecha caducidad:</h3>
+				<h3>{{articulo.fechaCaducidad | date: 'dd/MM/yyyy'}}</h3>
+				<h3 class="underline">Caduca en:</h3>
+				<h3>{{articulo.fechaCaducidad | timeToEnd }}</h3>
+			</ion-col>
+			<ion-col col-5>
+				<ion-row align-items-center>
+					<ion-col col-4 text-center>
+						<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad-1)">
+							<ion-icon name="md-remove"></ion-icon>
+						</button>
+					</ion-col>
+					<ion-col col-4 text-center>
+						{{articulo.cantidad ? articulo.cantidad : 0}}
+					</ion-col>
+					<ion-col col-4 text-center>
+						<button ion-button icon-only small (click)="updateCantidad(articulo, articulo.cantidad+1)">
+							<ion-icon name="md-add"></ion-icon>
+						</button>
+					</ion-col>
+				</ion-row>
+			</ion-col>
+		</ion-row>
+	</ion-item>
+</ion-list>
+
+<div class="separador"></div> 
+</ion-content>-->

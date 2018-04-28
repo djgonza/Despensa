@@ -2,17 +2,25 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { tap } from 'rxjs/operators/tap';
+import * as Constants from './../models/constants';
+import { Category } from './../models/category';
+import { Product } from './../models/product';
+import { Unit } from './../models/unit';
+import { Locations } from './../models/locations';
+import { Image } from './../models/image';
 
 @Injectable()
 export class MemoryService {
 	
-	private _products: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
-	private _articles: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
-	private _images: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
-	private _locations: BehaviorSubject<object[]> = new BehaviorSubject<object[]>(new Array());
-	private _selectedProduct: BehaviorSubject<object> = new BehaviorSubject<object>(null);
-	private _selectedArticle: BehaviorSubject<object> = new BehaviorSubject<object>(null);
-	private _selectedImage: BehaviorSubject<object> = new BehaviorSubject<object>({location: 'http://via.placeholder.com/1000x1000'});
+	private _categories: BehaviorSubject<Category[]> = new BehaviorSubject<Category[]>(new Array());
+	private _products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>(new Array());
+	private _units: BehaviorSubject<Unit[]> = new BehaviorSubject<Unit[]>(new Array());
+	private _images: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>(new Array());
+	private _locations: BehaviorSubject<Locations[]> = new BehaviorSubject<Locations[]>(new Array());
+	private _selectedCategory: BehaviorSubject<string> = new BehaviorSubject<string>("");
+	private _selectedProduct: BehaviorSubject<string> = new BehaviorSubject<string>("");
+	private _selectedUnit: BehaviorSubject<string> = new BehaviorSubject<string>("");
+	private _selectedImage: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
 	constructor () {
 		console.log(this);
@@ -23,13 +31,15 @@ export class MemoryService {
 	*/
 	private getBS (field: string): BehaviorSubject<object[]> {
 		switch (field) {
-			case "products":
+			case Constants.CATEGORY:
+				return this._categories;
+			case Constants.PRODUCT:
 				return this._products;
-			case "articles":
-				return this._articles;
-			case "images":
+			case Constants.UNIT:
+				return this._units;
+			case Constants.IMAGE:
 				return this._images;
-			case "locations":
+			case Constants.LOCATION:
 				return this._locations;
 			default:
 			break;
@@ -39,16 +49,16 @@ export class MemoryService {
 	/*
 	@field: nombre del array de objetos
 	*/
-	private getSelectBS (field: string): BehaviorSubject<object> {
+	private getSelectBS (field: string): BehaviorSubject<string> {
 		switch (field) {
-			case "selectedProduct":
+			case Constants.CATEGORY:
+				return this._selectedCategory;
+			case Constants.PRODUCT:
 				return this._selectedProduct;
-			case "selectedArticles":
-				return this._selectedArticle;
-			case "selectedImage":
+			case Constants.UNIT:
+				return this._selectedUnit;
+			case Constants.IMAGE:
 				return this._selectedImage;
-			default:
-				return;
 		}
 	}
 
@@ -63,6 +73,14 @@ export class MemoryService {
 		
 	}
 
+	public getValues (field: string): any {
+		return this.getBS(field).getValue();
+	}
+
+	public getSelectedValue (field: string) {
+		return this.getSelectBS(field).getValue();
+	}
+
 	/*
 	@field: nombre del array de objetos
 	*/
@@ -73,7 +91,7 @@ export class MemoryService {
 	/*
 	@field: nombre del array de objetos
 	*/
-	public getSelect (field: string): Observable<object> {
+	public getSelect (field: string): Observable<string> {
 		return this.getSelectBS(field).asObservable();
 	}
 
@@ -82,7 +100,7 @@ export class MemoryService {
 	@field: nombre del array de objetos
 	@first: true al principio, false al final, default principio 
 	*/
-	public add (object: object, field: string, first: boolean = true): void {
+	public add (field: string, object: object, first: boolean = true): void {
 		var bs: BehaviorSubject<object[]> = this.getBS(field);
 		var values = bs.getValue();
 		if (first)
@@ -92,8 +110,8 @@ export class MemoryService {
 		bs.next(values);
 	}
 
-	public addSelect (item: object, field: string): void {
-		this.getSelectBS(field).next(item);
+	public addSelect (id: string, field: string): void {
+		this.getSelectBS(field).next(id);
 	}
 
 	/* 
@@ -101,9 +119,10 @@ export class MemoryService {
 	@field: nombre del array de objetos
 	@first: true al principio, false al final, default principio 
 	*/
-	public addMultiple (objects: object[], field: string, first: boolean = true): void {
+	public addMultiple (field: string, objects: object[], first: boolean = true): void {
+		console.log("addMultiple", objects);
 		objects.forEach(object => {
-			this.add(object, field, first);
+			this.add(field, object, first);
 		});
 	}
 
@@ -123,11 +142,11 @@ export class MemoryService {
 	@object: objecto a actualizar
 	@field: nombre del array de objetos
 	*/
-	public update (object: object, field: string): void {
+	public update (field: string, object: object): void {
 		var bs: BehaviorSubject<object[]> = this.getBS(field);
 		var values = bs.getValue();
 		var valueIndex = values.findIndex(value => {
-			return value['id'] == object['id'];
+			return value['_id'] == object['_id'];
 		});
 		values[valueIndex] = object;
 		bs.next(values);
@@ -173,8 +192,8 @@ export class MemoryService {
 
 	//Images
 	public getImagePathById (imageId: string): string {
-		var img = this.getBS('images').getValue().find(image => {
-			return image['_id'] == imageId;
+		var img = this.getBS(Constants.IMAGE).getValue().find((image: Image) => {
+			return image._id == imageId;
 		})
 		if (img) {
 			return img['location'];

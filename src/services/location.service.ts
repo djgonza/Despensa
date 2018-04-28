@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from './http.service';
 import { MemoryService } from './memory.service';
+import * as Constants from './../models/constants';
 
 @Injectable()
 export class LocationService {
@@ -9,20 +10,11 @@ export class LocationService {
 		private http: HttpService, 
 		private memory: MemoryService) {}
 
-	public addLocation (location: object): void {
-
+	public getLocationById (locationId: string): object {
+		return this.memory.getValues(Constants.LOCATION).find(location => {
+			return location._id == locationId;
+		});
 	}
 
-	public getLocations (): void {
-
-	}
-
-	public updateLocation (locationId: string, fields: object): void {
-
-	}
-
-	public deleteLocation (locationId: string): void {
-
-	}
 
 }
