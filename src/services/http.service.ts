@@ -149,11 +149,11 @@ export class HttpService {
 
 	private parseJsonToObject (field: string, jsonObject: object): object {
 		switch (field) {
-			case Constants.CATEGORY: return Object.assign(new Category, jsonObject);
-			case Constants.PRODUCT: return Object.assign(new Product, jsonObject);
-			case Constants.UNIT: return Object.assign(new Unit, jsonObject);
-			case Constants.LOCATION: return Object.assign(new Locations, jsonObject);
-			case Constants.IMAGE: return Object.assign(new Image, jsonObject);
+			case Constants.CATEGORY: return Object.assign(new Category(null), jsonObject);
+			case Constants.PRODUCT: return Object.assign(new Product(null, null, null), jsonObject);
+			case Constants.UNIT: return Object.assign(new Unit(null, null, null, null), jsonObject);
+			case Constants.LOCATION: return Object.assign(new Locations(null), jsonObject);
+			case Constants.IMAGE: return Object.assign(new Image(null, null, null, null, null, null, null, null, null, null, null, null, null), jsonObject);
 			default: return null;
 		}
 
