@@ -20,8 +20,8 @@ import { Product } from './../../models/product';
 })
 export class LoginPage {
 
-	@Input() name: string = "David";
-	@Input() secret: string = "123";
+	@Input() name: string;// = "David";
+	@Input() secret: string;// = "123";
 	private showError: boolean = false;
 	private className: string = '';
 	private imageToUpload;
