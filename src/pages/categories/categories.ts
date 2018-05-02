@@ -53,6 +53,10 @@ export class CategoriesPage implements OnInit {
 	private openGalery () {
 		this.selectingImage = true;
 	}
+	
+	private closeGalery (e) {
+		this.selectingImage = false;
+	}
 
 	private addImage (image: object) {
 		this.image = image;

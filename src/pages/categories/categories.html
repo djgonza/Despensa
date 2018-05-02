@@ -9,7 +9,7 @@
 <ion-content padding>
 
 	<div *ngIf="selectingImage">
-		<galery (selectedImage)="addImage($event)"></galery>
+		<galery (selectedImage)="addImage($event)" (closeGalery)="closeGalery($event)" [btnClose]="true"></galery>
 	</div>
 
 	<!-- <div *ngIf="count | async">No hay categorias creadas</div> -->
