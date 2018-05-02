@@ -16,7 +16,7 @@ export class Galery implements OnInit {
 
 	private imageToUpload: string;
 	@Output() selectedImage = new EventEmitter<object>();
-	@Output() closeGalery = new EventEmitter<object>();
+	@Output() closeGalery = new EventEmitter<boolean>();
 	@Input() btnClose = false;
 
 	constructor(
