@@ -1,14 +1,20 @@
-
-<ion-row>
-	<ion-fab right bottom>
-		<button ion-fab (click)="addImage()">
-			<ion-icon name="add"></ion-icon>
+<ion-grid>
+	<ion-row justify-content-center>
+		<button ion-button clear (click)="close()" *ngIf="btnClose">
+			<ion-icon name="close-circle" color="danger"></ion-icon>
 		</button>
-	</ion-fab>
-
-	<ion-col col-4 *ngFor="let image of getImages() | async">
-		<ion-card (click)="selectImage(image)">
-			<img src="{{image.location}}"/>
-		</ion-card>
-	</ion-col>
-</ion-row>
+		<button ion-button clear (click)="addImage()">
+			<ion-icon name="camera"></ion-icon>
+		</button>
+		<button ion-button clear (click)="addImage()">
+			<ion-icon name="cloud-upload"></ion-icon>
+		</button>
+	</ion-row>
+	<ion-row>
+		<ion-col col-4 *ngFor="let image of getImages() | async">
+			<ion-card (click)="selectImage(image)">
+				<img src="{{image.location}}"/>
+			</ion-card>
+		</ion-col>
+	</ion-row>
+</ion-grid>

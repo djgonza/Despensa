@@ -17,6 +17,7 @@ import { LocationService } from './../services/location.service';
 import { ImageService } from './../services/image.services';
 import { LoaderService } from './../services/loader.service';
 
+import { UnitComponent } from './../components/unit/unit.component';
 import { AlertComponent } from './../components/alert/alert.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Galery } from '../components/galery/galery';
@@ -24,11 +25,12 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { ProductsPage } from '../pages/products/products';
 import { GaleryPage } from './../pages/galery/galery.page';
 import { LoginPage } from '../pages/login/login';
-import { UnitsPage, TimeToEnd } from '../pages/units/units';
+import { UnitsPage } from '../pages/units/units';
 import { LocationsPage } from '../pages/locations/locations';
 
 import { OrderByDate } from '../pipes/orderByDate';
 import { Filter } from '../pipes/filter';
+import { TimeToEnd } from '../pipes/timeToEnd';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,6 +39,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	declarations: [
 		MyApp,
 		AlertComponent,
+		UnitComponent,
 		TabsPage,
 		Galery,
 		OrderByDate,

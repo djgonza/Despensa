@@ -1,0 +1,40 @@
+.unit-danger {
+    background-color: rgba(244,67,54,.3);
+    // color: #f44336;
+}
+
+.unit-alert {
+    background-color: rgba(255,235,59,.3);
+    // color: #766b03;
+}
+
+.unit-good {
+    background-color: rgba(76,175,80,.3);
+    // color: #016305;
+}
+
+.menu {
+	position: absolute;
+	z-index: 2000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    font-size: 1rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: -5px 0px 14px 1px rgba(0,0,0,0.51);
+}
+
+.menu>div {
+	padding: 0 1rem;
+	height: 50%;
+	display: flex;
+    align-items: center;
+}
+
+.menu>div:first-child {
+	border-bottom: 1px solid;
+}

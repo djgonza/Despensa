@@ -27,11 +27,6 @@ export class ImageService {
 		let formData:FormData = new FormData();
 		formData.append('image', image, "image");
 
-		return this.http.post(Constants.IMAGE, Constants.PATHS.images.createImage, formData)
-		.pipe(
-			tap(res => {
-				this.memory.add(Constants.IMAGE, res);
-			})
-		);
+		return this.http.post(Constants.IMAGE, Constants.PATHS.images.createImage, formData);
 	}
 }

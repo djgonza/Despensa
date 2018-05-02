@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Observable } from "rxjs/Observable";
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { AlertController } from 'ionic-angular';
 
 import * as Constants from './../../models/constants';
 import { Product } from './../../models/product';
@@ -19,6 +20,8 @@ import { UnitsPage } from './../units/units';
 })
 export class ProductsPage implements OnInit {
 
+	//TODO: click en nombre abre un input flotante
+
 	private name: string;
 	private code: string;
 	private image: object;
@@ -26,15 +29,46 @@ export class ProductsPage implements OnInit {
 	private createNewProduct: boolean = false;
 
 	constructor(
-		public navCtrl: NavController,
+		private navCtrl: NavController,
 		private barcodeScanner: BarcodeScanner,
 		private memory: MemoryService,
 		private imageService: ImageService,
 		private http: HttpService,
-		private loader: LoaderService
+		private loader: LoaderService,
+		private alertCtrl: AlertController
 		) {}
 
 	ngOnInit() { 
+	}
+
+	private showPrompt() {
+		let prompt = this.alertCtrl.create({
+			title: 'Nombre',
+			message: "Ingresa el nombre del producto",
+			inputs: [
+			{
+				name: 'name',
+				placeholder: 'Nombre',
+				value: this.name
+			},
+			],
+			buttons: [
+			{
+				text: 'Cancelar',
+				handler: data => {
+					//console.log('Cancel clicked', data);
+				}
+			},
+			{
+				text: 'Guardar',
+				handler: data => {
+					//console.log('Saved clicked', data);
+					this.name = data.name;
+				}
+			}
+			]
+		});
+		prompt.present();
 	}
 
 	private navigateToUnits (productId: string) {
@@ -44,6 +78,10 @@ export class ProductsPage implements OnInit {
 
 	private openGalery () {
 		this.selectingImage = true;
+	}
+
+	private closeGalery (e) {
+		this.selectingImage = false;
 	}
 
 	private addImage (image: object) {

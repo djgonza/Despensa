@@ -16,6 +16,8 @@ export class Galery implements OnInit {
 
 	private imageToUpload: string;
 	@Output() selectedImage = new EventEmitter<object>();
+	@Output() closeGalery = new EventEmitter<object>();
+	@Input() btnClose = false;
 
 	constructor(
 		public navCtrl: NavController,
@@ -47,6 +49,10 @@ export class Galery implements OnInit {
 
 	private selectImage(image: object) {
 		this.selectedImage.emit(image);
+	}
+
+	private close () {
+		this.closeGalery.emit(true);
 	}
 
 	private addImage () {

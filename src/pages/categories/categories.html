@@ -12,6 +12,8 @@
 		<galery (selectedImage)="addImage($event)"></galery>
 	</div>
 
+	<!-- <div *ngIf="count | async">No hay categorias creadas</div> -->
+
 	<ion-list *ngIf="!selectingImage">
 
 		<ion-item *ngIf="createNewCategory" class="active">

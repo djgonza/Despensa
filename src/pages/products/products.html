@@ -6,7 +6,7 @@
 
 <ion-content>
 	<div *ngIf="selectingImage">
-		<galery (selectedImage)="addImage($event)"></galery>
+		<galery (selectedImage)="addImage($event)" (closeGalery)="closeGalery($event)" [btnClose]="true"></galery>
 	</div>
 	<ion-row *ngIf="!selectingImage">
 		<!--new -->
@@ -15,7 +15,7 @@
 				<img src="{{image ? image.location : 'http://via.placeholder.com/1000x1000'}}" (click)="openGalery()" />
 				<ion-card-content>
 					<ion-card-title>
-						<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre">
+						<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre" (click)="showPrompt()">
 					</ion-card-title>
 					<p class="code">
 						<input class="input" (click)="loadCode()" type="text" [(ngModel)]="code" placeholder="Codigo">
@@ -46,7 +46,7 @@
 			</ion-card>
 		</ion-col>
 	</ion-row>
-	<ion-fab right bottom>
+	<ion-fab right bottom *ngIf="!selectingImage">
 		<button ion-fab (click)="openCreateNewProduct()">
 			<ion-icon name="add"></ion-icon>
 		</button>

@@ -18,6 +18,7 @@ export class CategoriesPage implements OnInit {
 	private image: object;
 	private createNewCategory: boolean = false;
 	private selectingImage: boolean = false;
+	private count;
 
 	constructor(
 		public navCtrl: NavController,
@@ -28,7 +29,12 @@ export class CategoriesPage implements OnInit {
 		) {}
 
 	ngOnInit() { 
-
+		// this.count = Observable.create(observer => {
+		// 	observer.next(false);
+		// });
+		// this.memory.get(Constants.CATEGORY).subscribe(items => {
+		// 	this.count.next(items.length > 0);
+		// });
 	}
 
 	private navigateToProducts (categoryId: string) {
