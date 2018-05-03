@@ -27,6 +27,8 @@ export class ProductsPage implements OnInit {
 	private image: object;
 	private selectingImage: boolean = false;
 	private createNewProduct: boolean = false;
+	private searchFilterValue: string = '';
+	private searchCodeFilterValue: string = '';
 
 	constructor(
 		private navCtrl: NavController,
@@ -39,6 +41,30 @@ export class ProductsPage implements OnInit {
 		) {}
 
 	ngOnInit() { 
+	}
+
+	private getUnitsCountByIdProduct (idProduct) {
+		return this.memory.getValues(Constants.UNIT).filter(unit => {
+			return unit.product == idProduct;
+		}).length;
+	}
+
+	private searchFilter (e) {
+		this.searchFilterValue = e.target.value;
+	}
+
+	private searchCodeFilter () {
+
+		if (this.searchCodeFilterValue){
+			this.searchCodeFilterValue = '';
+			return
+		}
+
+		this.barcodeScanner.scan().then((barcodeData) => {
+			this.searchCodeFilterValue = barcodeData.text;
+		}, (err) => {
+			console.log(err);
+		});
 	}
 
 	private showPrompt() {

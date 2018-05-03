@@ -14,10 +14,11 @@ import * as Constants from './../../models/constants';
 })
 export class Galery implements OnInit {
 
-	private imageToUpload: string;
+	
 	@Output() selectedImage = new EventEmitter<object>();
 	@Output() closeGalery = new EventEmitter<boolean>();
 	@Input() btnClose = false;
+	private imageToUpload: string;
 
 	constructor(
 		public navCtrl: NavController,
@@ -32,7 +33,8 @@ export class Galery implements OnInit {
 	}
 
 	private fileChange(e) {
-		console.log(e);
+		if (e.target.files.length == 0) return;
+		this.saveImage(e.target.files[0]);
 	}
 
 	private getImages () {
@@ -78,6 +80,18 @@ export class Galery implements OnInit {
 			});
 		}, (err) => {
 			console.log(err);
+		});
+	}
+
+	private saveImage (image) {
+		this.openLoader();
+		this.imageService.addImage(image)
+		.subscribe(res => {
+			console.log(res);
+			this.closeLoader();
+		}, err => {
+			console.log(err);
+			this.closeLoader();
 		});
 	}
 

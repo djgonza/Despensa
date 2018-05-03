@@ -36,9 +36,7 @@
 	</ion-list>
 
 	<ion-list *ngIf="!isNew">
-		<!-- <ion-item *ngFor="let unit of getUnits() | async | filter : 'product' : getSelectedProduct() | orderByDate : 'expirationDate'" [ngClass]="getStatus(unit.expirationDate)"> -->
 			<unit-component *ngFor="let unit of getUnits() | async | filter : 'product' : getSelectedProduct() | orderByDate : 'expirationDate'" [unit]="unit"></unit-component>
-		<!-- </ion-item> -->
 	</ion-list>
 
 	<div class="end"></div>

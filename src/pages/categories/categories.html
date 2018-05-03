@@ -14,6 +14,8 @@
 
 	<!-- <div *ngIf="count | async">No hay categorias creadas</div> -->
 
+	<ion-searchbar *ngIf="!selectingImage" (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
+
 	<ion-list *ngIf="!selectingImage">
 
 		<ion-item *ngIf="createNewCategory" class="active">
@@ -29,7 +31,7 @@
 			</h2>
 		</ion-item>
 
-		<ion-item *ngFor="let category of getCategories() | async" (click)="navigateToProducts(category._id)">
+		<ion-item *ngFor="let category of getCategories() | async | filter : 'name' : searchFilterValue" (click)="navigateToProducts(category._id)">
 			<ion-avatar item-start>
 				<img src="{{getImageLocation(category.image)}}">
 			</ion-avatar>

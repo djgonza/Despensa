@@ -8,6 +8,17 @@
 	<div *ngIf="selectingImage">
 		<galery (selectedImage)="addImage($event)" (closeGalery)="closeGalery($event)" [btnClose]="true"></galery>
 	</div>
+	<ion-row justify-content-center>
+		<ion-col col-10>
+			<ion-searchbar *ngIf="!selectingImage" (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
+		</ion-col>
+		<ion-col col-2 align-self-center>
+			<button color="{{searchCodeFilterValue ? 'danger' : null}}" ion-button icon-only (click)="searchCodeFilter()">
+				<ion-icon name="{{searchCodeFilterValue ? 'close-circle' : 'barcode'}}"></ion-icon>
+			</button>
+		</ion-col>
+	</ion-row>
+	
 	<ion-row *ngIf="!selectingImage">
 		<!--new -->
 		<ion-col col-6 *ngIf="createNewProduct">
@@ -32,7 +43,7 @@
 			</ion-card>
 		</ion-col>
 		<!-- for -->
-		<ion-col col-6 *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory()">
+		<ion-col col-6 *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory() | filter : 'name' : searchFilterValue | filter : 'code' : searchCodeFilterValue">
 			<ion-card (click)="navigateToUnits(product._id)">
 				<img src="{{getImageLocation(product.image)}}"/>
 				<ion-card-content>
@@ -41,6 +52,9 @@
 					</ion-card-title>
 					<p class="code">
 						{{product.code}}
+					</p>
+					<p class="code">
+						Unidades: {{getUnitsCountByIdProduct(product._id)}}
 					</p>
 				</ion-card-content>
 			</ion-card>

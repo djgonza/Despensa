@@ -6,7 +6,7 @@
 		<button ion-button clear (click)="addImage()">
 			<ion-icon name="camera"></ion-icon>
 		</button>
-		<button ion-button clear (click)="addImage()">
+		<button ion-button clear (click)="file.click()">
 			<ion-icon name="cloud-upload"></ion-icon>
 		</button>
 	</ion-row>
@@ -18,3 +18,5 @@
 		</ion-col>
 	</ion-row>
 </ion-grid>
+
+<input [hidden]="true" type="file" accept="image/*" #file (change)="fileChange($event)">

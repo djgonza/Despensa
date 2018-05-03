@@ -19,6 +19,7 @@ export class CategoriesPage implements OnInit {
 	private createNewCategory: boolean = false;
 	private selectingImage: boolean = false;
 	private count;
+	private searchFilterValue: string = '';
 
 	constructor(
 		public navCtrl: NavController,
@@ -35,6 +36,10 @@ export class CategoriesPage implements OnInit {
 		// this.memory.get(Constants.CATEGORY).subscribe(items => {
 		// 	this.count.next(items.length > 0);
 		// });
+	}
+
+	private searchFilter (e) {
+		this.searchFilterValue = e.target.value;
 	}
 
 	private navigateToProducts (categoryId: string) {
