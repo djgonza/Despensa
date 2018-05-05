@@ -1,15 +1,7 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-title>
-			Unidades
-		</ion-title>
-		<ion-buttons start>
-			<button ion-button (click)="goBack()">
-				<span ion-text color="primary" showWhen="ios">Cancel</span>
-				<ion-icon name="md-close"></ion-icon>
-			</button>
-		</ion-buttons>
-	</ion-toolbar>
+	<ion-navbar>
+		<ion-title>Unidades</ion-title>
+	</ion-navbar>
 </ion-header>
 <ion-content padding>
 
@@ -39,7 +31,7 @@
 			<unit-component *ngFor="let unit of getUnits() | async | filter : 'product' : getSelectedProduct() | orderByDate : 'expirationDate'" [unit]="unit"></unit-component>
 	</ion-list>
 
-	<div class="end"></div>
+	<div class="emptyMarginBottom"></div>
 	
 	<ion-fab right bottom>
 		<button ion-fab (click)="openCreateNewUnit()"><ion-icon name="add"></ion-icon></button>

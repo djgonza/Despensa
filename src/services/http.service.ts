@@ -68,15 +68,17 @@ export class HttpService {
 	}
 
 	//Peticiones delete
-	public delete(field: string,id: string, url: string): Observable<any> {
+	public delete(field: string, id: string, url: string): Observable<any> {
 		//TODO: pensarlo
 		return this.http.get(this.tokenApi + '/token/accessToken', this.getHeader(this._refreshToken.getValue())).pipe(
 			catchError(this.handleError),
 			concatMap(res => {
-				return this.http.delete(url, this.getHeader(res['accessToken'])).pipe(
+				var headers = this.getHeader(res['accessToken']);
+				headers['headers']['_id'] = id;
+				return this.http.delete(url, headers).pipe(
 					catchError(this.handleError),
 					tap(res => {
-						this.memory.delete(field, res);
+						this.memory.delete(id, field);
 					})
 					);
 			})

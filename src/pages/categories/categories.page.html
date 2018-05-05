@@ -1,0 +1,34 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			Categorias
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-searchbar (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
+
+	<ion-list>
+
+		<new-category *ngIf="showNewCategory" (close)="closeCreateNewCategory($event)" (openGalery)="openGalery($event)"></new-category>
+
+		<ion-list>
+			<category (openGalery)="openGalery($event)" [category]="category" *ngFor="let category of getCategories() | async | filter : 'name' : searchFilterValue"></category>
+		</ion-list>
+
+	</ion-list>
+
+	<div class="emptyMarginBottom"></div>
+
+	<ion-fab right bottom>
+		<button ion-fab (click)="openCreateNewCategory()">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
+	
+</ion-content>
+
+
+

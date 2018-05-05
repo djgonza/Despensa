@@ -61,9 +61,10 @@ export class ProductsPage implements OnInit {
 		}
 
 		this.barcodeScanner.scan().then((barcodeData) => {
+			console.log(barcodeData);
 			this.searchCodeFilterValue = barcodeData.text;
 		}, (err) => {
-			console.log(err);
+			console.log('err', err);
 		});
 	}
 

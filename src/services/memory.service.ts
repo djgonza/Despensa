@@ -20,7 +20,7 @@ export class MemoryService {
 	private _selectedCategory: BehaviorSubject<string> = new BehaviorSubject<string>("");
 	private _selectedProduct: BehaviorSubject<string> = new BehaviorSubject<string>("");
 	private _selectedUnit: BehaviorSubject<string> = new BehaviorSubject<string>("");
-	private _selectedImage: BehaviorSubject<string> = new BehaviorSubject<string>("");
+	private _selectedImage: BehaviorSubject<Image> = new BehaviorSubject<Image>(null);
 
 	constructor () {
 		console.log(this);
@@ -49,7 +49,7 @@ export class MemoryService {
 	/*
 	@field: nombre del array de objetos
 	*/
-	private getSelectBS (field: string): BehaviorSubject<string> {
+	private getSelectBS (field: string): BehaviorSubject<any> {
 		switch (field) {
 			case Constants.CATEGORY:
 				return this._selectedCategory;
@@ -81,6 +81,14 @@ export class MemoryService {
 		return this.getSelectBS(field).getValue();
 	}
 
+	public getValue (field: string, id: string): any {
+		var values = this.getValues(field);
+		var index = values.findIndex(item => {
+			return item._id == id
+		});
+		return values[index];
+	}
+
 	/*
 	@field: nombre del array de objetos
 	*/
@@ -91,7 +99,7 @@ export class MemoryService {
 	/*
 	@field: nombre del array de objetos
 	*/
-	public getSelect (field: string): Observable<string> {
+	public getSelect (field: string): Observable<any> {
 		return this.getSelectBS(field).asObservable();
 	}
 
@@ -110,8 +118,8 @@ export class MemoryService {
 		bs.next(values);
 	}
 
-	public addSelect (id: string, field: string): void {
-		this.getSelectBS(field).next(id);
+	public addSelect (value: any, field: string): void {
+		this.getSelectBS(field).next(value);
 	}
 
 	/* 
@@ -120,7 +128,6 @@ export class MemoryService {
 	@first: true al principio, false al final, default principio 
 	*/
 	public addMultiple (field: string, objects: object[], first: boolean = true): void {
-		console.log("addMultiple", objects);
 		objects.forEach(object => {
 			this.add(field, object, first);
 		});
@@ -133,7 +140,7 @@ export class MemoryService {
 	public delete (id: string, field: string): void {
 		var bs: BehaviorSubject<object[]> = this.getBS(field);
 		var newValues = bs.getValue().filter(value => {
-			return value['id'] != id;
+			return value['_id'] != id;
 		});
 		bs.next(newValues);
 	}

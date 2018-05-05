@@ -21,12 +21,15 @@ import { UnitComponent } from './../components/unit/unit.component';
 import { AlertComponent } from './../components/alert/alert.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Galery } from '../components/galery/galery';
-import { CategoriesPage } from '../pages/categories/categories';
 import { ProductsPage } from '../pages/products/products';
 import { GaleryPage } from './../pages/galery/galery.page';
 import { LoginPage } from '../pages/login/login';
 import { UnitsPage } from '../pages/units/units';
 import { LocationsPage } from '../pages/locations/locations';
+
+import { CategoriesPage } from '../pages/categories/categories.page';
+import { CategoryComponent } from '../pages/categories/category.component';
+import { NewCategoryComponent } from '../pages/categories/new.category.component';
 
 import { OrderByDate } from '../pipes/orderByDate';
 import { Filter } from '../pipes/filter';
@@ -40,6 +43,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		MyApp,
 		AlertComponent,
 		UnitComponent,
+		CategoryComponent,
+		NewCategoryComponent,
 		TabsPage,
 		Galery,
 		OrderByDate,
@@ -66,7 +71,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		GaleryPage,
 		LoginPage,
 		UnitsPage,
-		LocationsPage
+		LocationsPage,
+		Galery
 	],
 	providers: [
 		StatusBar,

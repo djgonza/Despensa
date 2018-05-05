@@ -63,10 +63,6 @@ export class UnitsPage {
 		this.isNew = true;
 	}
 
-	private goBack () {
-		this.navCtrl.pop();
-	}
-
 	private getLocations (): Observable<any[]> {
 		return this.memory.get(Constants.LOCATION);
 	}

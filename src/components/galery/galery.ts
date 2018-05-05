@@ -1,12 +1,13 @@
 import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from "rxjs/Observable";
 import { ImageService } from './../../services/image.services';
 import { MemoryService } from './../../services/memory.service';
 import { LoaderService } from './../../services/loader.service';
 import * as Constants from './../../models/constants';
+import { Image } from './../../models/image';
 
 @Component({
 	selector: 'galery',
@@ -25,8 +26,15 @@ export class Galery implements OnInit {
 		private camera: Camera,
 		private imageService: ImageService,
 		private memory: MemoryService,
-		private loader: LoaderService
+		private loader: LoaderService,
+		private params: NavParams,
+		private viewCtrl: ViewController
 		) {
+
+		if (params.get('btnClose')) {
+			this.btnClose = true;
+		}
+
 	}
 
 	ngOnInit() { 
@@ -49,11 +57,14 @@ export class Galery implements OnInit {
 		this.loader.removeMessage("Subiendo Imagen");
 	}
 
-	private selectImage(image: object) {
+	private selectImage(image: Image) {
+		this.memory.addSelect(image, Constants.IMAGE);
 		this.selectedImage.emit(image);
+		this.close();
 	}
 
 	private close () {
+		this.viewCtrl.dismiss();
 		this.closeGalery.emit(true);
 	}
 

@@ -1,22 +1,31 @@
-<ion-grid>
-	<ion-row justify-content-center>
-		<button ion-button clear (click)="close()" *ngIf="btnClose">
-			<ion-icon name="close-circle" color="danger"></ion-icon>
-		</button>
-		<button ion-button clear (click)="addImage()">
-			<ion-icon name="camera"></ion-icon>
-		</button>
-		<button ion-button clear (click)="file.click()">
-			<ion-icon name="cloud-upload"></ion-icon>
-		</button>
-	</ion-row>
-	<ion-row>
-		<ion-col col-4 *ngFor="let image of getImages() | async">
-			<ion-card (click)="selectImage(image)">
-				<img src="{{image.location}}"/>
-			</ion-card>
-		</ion-col>
-	</ion-row>
-</ion-grid>
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			Galeria
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content padding>
+	<ion-grid>
+		<ion-row justify-content-center>
+			<button ion-button clear (click)="close()" *ngIf="btnClose">
+				<ion-icon name="close-circle" color="danger"></ion-icon>
+			</button>
+			<button ion-button clear (click)="addImage()">
+				<ion-icon name="camera"></ion-icon>
+			</button>
+			<button ion-button clear (click)="file.click()">
+				<ion-icon name="cloud-upload"></ion-icon>
+			</button>
+		</ion-row>
+		<ion-row>
+			<ion-col col-4 *ngFor="let image of getImages() | async">
+				<ion-card (click)="selectImage(image)">
+					<img src="{{image.location}}"/>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
 
 <input [hidden]="true" type="file" accept="image/*" #file (change)="fileChange($event)">

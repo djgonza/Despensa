@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CategoriesPage } from '../categories/categories';
+import { CategoriesPage } from '../categories/categories.page';
 import { ProductsPage } from '../products/products';
 import { GaleryPage } from './../galery/galery.page';
 import { LocationsPage } from './../locations/locations';

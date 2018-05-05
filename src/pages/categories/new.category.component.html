@@ -1,0 +1,12 @@
+<ion-item class="active">
+	<ion-avatar item-start>
+		<img (click)="selectImage()" src="{{getImage () | async}}">
+	</ion-avatar>
+	<h2>
+		<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre" style="width: 100%;">
+	</h2>
+	<h2>
+		<button right ion-button (click)="create()" [disabled]="!validate()">Guardar</button>
+		<button right ion-button color="danger" (click)="cancel()">Cancelar</button>
+	</h2>
+</ion-item>
