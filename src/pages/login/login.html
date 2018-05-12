@@ -1,6 +1,12 @@
 <ion-content class="login">
 	<ion-grid class="logo"></ion-grid>
 	<ion-grid>
+		<ion-row *ngIf="err">
+			<ion-col style="text-align: center; background-color: #f909097d;">
+				{{err}}
+			</ion-col>
+			
+		</ion-row>
 		<ion-row class="input-row">
 			<ion-col col-2>
 				<ion-icon name="ios-person"></ion-icon>

@@ -24,7 +24,7 @@ export class LoginPage {
 	@Input() secret: string;// = "123";
 	private showError: boolean = false;
 	private className: string = '';
-	private imageToUpload;
+	private err: string = null;
 
 	constructor(
 		public navCtrl: NavController,
@@ -37,6 +37,7 @@ export class LoginPage {
 
 	ionViewDidEnter () {
 		this.className = '';
+		this.err = null;
 		this.memory.clearMemory();
 
 	}
@@ -73,8 +74,13 @@ export class LoginPage {
 			name: this.name,
 			secret: this.secret
 		}).subscribe(res => {
+			console.log(res);
 			//this.alertService.addMessage('Bienvenido');
 			this.navCtrl.push(TabsPage);
+		}, err => {
+			this.className = '';
+			this.err = "El nombre o la contraseña no son correctos";
+			console.log(err);
 		});
 	}
 
