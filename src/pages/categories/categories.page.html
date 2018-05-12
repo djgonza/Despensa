@@ -6,11 +6,11 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
 	<ion-searchbar (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
 
-	<ion-list padding>
+	<ion-list>
 
 		<new-category *ngIf="showNewCategory" (close)="closeCreateNewCategory($event)" (openGalery)="openGalery($event)"></new-category>
 

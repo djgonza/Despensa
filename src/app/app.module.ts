@@ -4,7 +4,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { MyApp } from './app.component';
 
 import { GlobalInterceptor } from './../interceptor/GlobalInterceptor';
@@ -18,24 +17,19 @@ import { LocationService } from './../services/location.service';
 import { ImageService } from './../services/image.services';
 import { LoaderService } from './../services/loader.service';
 
+import { UnitComponent } from './../components/unit/unit.component';
 import { AlertComponent } from './../components/alert/alert.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Galery } from '../components/galery/galery';
-
+import { ProductsPage } from '../pages/products/products';
 import { GaleryPage } from './../pages/galery/galery.page';
 import { LoginPage } from '../pages/login/login';
+import { UnitsPage } from '../pages/units/units';
 import { LocationsPage } from '../pages/locations/locations';
 
 import { CategoriesPage } from '../pages/categories/categories.page';
 import { CategoryComponent } from '../pages/categories/category.component';
 import { NewCategoryComponent } from '../pages/categories/new.category.component';
-
-import { ProductsPage } from '../pages/products/products';
-import { ProductComponent } from '../pages/products/components/product.component';
-import { NewProductComponent } from '../pages/products/components/new.product.component';
-
-import { UnitsPage } from '../pages/units/units';
-import { UnitComponent } from './../pages/units/components/unit.component';
 
 import { OrderByDate } from '../pipes/orderByDate';
 import { Filter } from '../pipes/filter';
@@ -51,8 +45,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		UnitComponent,
 		CategoryComponent,
 		NewCategoryComponent,
-		ProductComponent,
-		NewProductComponent,
 		TabsPage,
 		Galery,
 		OrderByDate,
@@ -93,7 +85,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		},
 		BarcodeScanner,
 		Camera,
-		AndroidFingerprintAuth,
 		AlertService,
 		ImageService,
 		MemoryService,

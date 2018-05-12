@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import moment from 'moment';
-import { Unit } from './../../../models/unit';
-import { LocationService } from './../../../services/location.service';
-import * as Constants from './../../../models/constants';
-import { HttpService } from './../../../services/http.service';
-import { LoaderService } from '../../../services/loader.service';
+import { Unit } from './../../models/unit';
+import { LocationService } from './../../services/location.service';
+import * as Constants from './../../models/constants';
+import { HttpService } from './../../services/http.service';
 
 @Component({
 	selector: 'unit-component',
@@ -16,10 +15,7 @@ export class UnitComponent implements OnInit {
 	@Input() unit: Unit;
 	private showMenu: boolean = false;
 
-	constructor(private alertCtrl: AlertController, 
-		private locationService: LocationService, 
-		private http: HttpService,
-		private loader: LoaderService,) {}
+	constructor(private alertCtrl: AlertController, private locationService: LocationService, private http: HttpService) {}
 
 	ngOnInit () {
 
@@ -47,6 +43,11 @@ export class UnitComponent implements OnInit {
 		});
 	}
 
+	private clickEvent (e) {
+		//console.log(e);
+		this.showMenu = false;
+	}
+
 	private getStatus (date: Date) {
 		var diffMS = moment(date).diff(moment());
 		if (diffMS < 0) return 'unit-danger'; //Semana
@@ -55,35 +56,32 @@ export class UnitComponent implements OnInit {
 		return;
 	}
 
-	private saveDelete () {
-		this.loader.addMessage("Borrando unidad");
-		this.http.delete(Constants.UNIT, this.unit._id, Constants.PATHS.units.deleteUnit)
-		.subscribe(validate => {
-			this.loader.removeMessage("Borrando unidad");
-		}, err => {
-			this.loader.removeMessage("Borrando unidad");
-		});
-	}
-
-	private delete (e) {
-		e.stopPropagation();
-		this.alertCtrl.create({
-			message: `¿Quires eliminar la unidad?`,
-			buttons: [
-			{
-				text: 'Cancelar',
-				handler: () => {
-					console.log('Cancel clicked');
-				}
-			},
-			{
-				text: 'Aceptar',
-				handler: () => {
-					this.saveDelete();
-				}
-			}
-			]
-		}).present();
+	private panEvent (e, item) {
+		//console.log(e);
+		if (e.deltaX < -200 && !this.showMenu) {
+			this.showMenu = true;
+			// let confirm = this.alertCtrl.create({
+			// 	title: 'Eliminar',
+			// 	message: '¿Seguro que quieres eliminar la unidad?',
+			// 	buttons: [
+			// 	{
+			// 		text: 'Cancelar',
+			// 		handler: () => {
+			// 			console.log('Disagree clicked');
+			// 			this.showMenu = false;
+			// 		}
+			// 	},
+			// 	{
+			// 		text: 'Aceptar',
+			// 		handler: () => {
+			// 			console.log('Agree clicked');
+			// 			this.showMenu = false;
+			// 		}
+			// 	}
+			// 	]
+			// });
+			// confirm.present();
+		}
 	}
 
 }

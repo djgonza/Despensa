@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit {
 				if (image) return image.location;
 				return 'http://via.placeholder.com/1000x1000';	
 			})
-		);
+		);;
 	}
 
 	private getImageLocation (imageId: string): string {

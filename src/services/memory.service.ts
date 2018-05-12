@@ -46,14 +46,6 @@ export class MemoryService {
 		}
 	}
 
-	public clearMemory () {
-		this._categories.next([]);
-		this._products.next([]);
-		this._units.next([]);
-		this._images.next([]);
-		this._locations.next([]);
-	}
-
 	/*
 	@field: nombre del array de objetos
 	*/

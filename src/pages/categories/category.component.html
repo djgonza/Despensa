@@ -1,13 +1,26 @@
-<ion-item-sliding #item (click)="navigateToProducts(category._id)" [class.active]="editing" *ngIf="!editing">
+<ion-item-sliding #item (click)="navigateToProducts(category._id)" [class.active]="editing">
 
-	<ion-item>
+	<ion-item *ngIf="!editing">
 		<ion-avatar item-start>
 			<img src="{{getImageLocation(category.image)}}">
 		</ion-avatar>
 		<h2>{{category.name}}</h2>
 		<h3>Productos: {{getCountProductsInCategory(category._id)}}</h3>
 	</ion-item>
-	
+
+	<ion-item *ngIf="editing">
+		<ion-avatar item-start (click)="selectImage()">
+			<img src="{{getSelectedImage() | async}}">
+		</ion-avatar>
+		<h2>
+			<input class="input" type="text" [(ngModel)]="categoryEditing.name" placeholder="Nombre" style="width: 100%;">
+		</h2>
+		<h2>
+			<button right ion-button (click)="saveUpdate($event)">Guardar</button>
+			<button right ion-button color="danger" (click)="cancel($event)">Cancelar</button>
+		</h2>
+	</ion-item>
+
 	<ion-item-options side="left">
 		<button ion-button clear small color="danger" (click)="delete($event, item)">
 			<ion-icon name="trash" style="padding-bottom: 0; font-size: 2em;"></ion-icon>
@@ -21,16 +34,3 @@
 	</ion-item-options>
 	
 </ion-item-sliding>
-
-<ion-item *ngIf="editing">
-	<ion-avatar item-start (click)="selectImage()">
-		<img src="{{getSelectedImage() | async}}">
-	</ion-avatar>
-	<h2>
-		<input class="input" type="text" [(ngModel)]="categoryEditing.name" placeholder="Nombre" style="width: 100%;">
-	</h2>
-	<h2>
-		<button right ion-button (click)="saveUpdate($event)">Guardar</button>
-		<button right ion-button color="danger" (click)="cancel($event)">Cancelar</button>
-	</h2>
-</ion-item>
