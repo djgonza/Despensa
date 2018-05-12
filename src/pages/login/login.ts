@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Observable } from "rxjs/Observable";
-import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
+//import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 
 import { HttpService } from './../../services/http.service';
 import { AlertService } from './../../services/alert.service';
@@ -31,7 +31,7 @@ export class LoginPage {
 		private http: HttpService,
 		private alertService: AlertService,
 		private memory: MemoryService,
-		private androidFingerprintAuth: AndroidFingerprintAuth
+		//private androidFingerprintAuth: AndroidFingerprintAuth
 		) {
 	}
 
@@ -42,29 +42,29 @@ export class LoginPage {
 	}
 	
 	private loginByFinger () {
-		this.androidFingerprintAuth.isAvailable()
-		.then((result)=> {
-			if(result.isAvailable){
+		// this.androidFingerprintAuth.isAvailable()
+		// .then((result)=> {
+		// 	if(result.isAvailable){
 
-				this.androidFingerprintAuth.encrypt({ clientId: 'myAppName', username: 'myUsername', password: 'myPassword' })
-				.then(result => {
-					if (result.withFingerprint) {
-						alert('Successfully encrypted credentials.');
-						alert('Encrypted credentials: ' + result.token);
-					} else if (result.withBackup) {
-						alert('Successfully authenticated with backup password!');
-					} else alert('Didn\'t authenticate!');
-				})
-				.catch(error => {
-					if (error === this.androidFingerprintAuth.ERRORS.FINGERPRINT_CANCELLED) {
-						console.log('Fingerprint authentication cancelled');
-					} else console.error(error)
-				});
+		// 		this.androidFingerprintAuth.encrypt({ clientId: 'myAppName', username: 'myUsername', password: 'myPassword' })
+		// 		.then(result => {
+		// 			if (result.withFingerprint) {
+		// 				alert('Successfully encrypted credentials.');
+		// 				alert('Encrypted credentials: ' + result.token);
+		// 			} else if (result.withBackup) {
+		// 				alert('Successfully authenticated with backup password!');
+		// 			} else alert('Didn\'t authenticate!');
+		// 		})
+		// 		.catch(error => {
+		// 			if (error === this.androidFingerprintAuth.ERRORS.FINGERPRINT_CANCELLED) {
+		// 				console.log('Fingerprint authentication cancelled');
+		// 			} else console.error(error)
+		// 		});
 
-			} else {
-			}
-		})
-		.catch(error => console.error(error));
+		// 	} else {
+		// 	}
+		// })
+		// .catch(error => console.error(error));
 	}
 
 	private login () {

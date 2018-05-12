@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
+//import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { MyApp } from './app.component';
 
 import { GlobalInterceptor } from './../interceptor/GlobalInterceptor';
@@ -93,7 +93,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		},
 		BarcodeScanner,
 		Camera,
-		AndroidFingerprintAuth,
+		//AndroidFingerprintAuth,
 		AlertService,
 		ImageService,
 		MemoryService,
