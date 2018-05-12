@@ -10,7 +10,7 @@
 
 	<ion-list>
 
-		<ion-item *ngIf="isNew" class="active">
+		<ion-item *ngIf="isNew" class="active" style="padding-left: 1rem;">
 			<h2>
 				<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre">
 			</h2>
@@ -19,7 +19,7 @@
 			</h2>
 		</ion-item>
 
-		<ion-item *ngFor="let location of getLocations() | async">
+		<ion-item *ngFor="let location of getLocations() | async" style="text-align: center; margin-bottom: 1rem;">
 			<h2>{{location.name}}</h2>
 		</ion-item>
 	</ion-list>

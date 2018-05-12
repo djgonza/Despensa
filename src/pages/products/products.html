@@ -1,13 +1,13 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Productos</ion-title>
+		<ion-title>
+			Productos
+		</ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content>
-	<div *ngIf="selectingImage">
-		<galery (selectedImage)="addImage($event)" (closeGalery)="closeGalery($event)" [btnClose]="true"></galery>
-	</div>
+
 	<ion-row justify-content-center>
 		<ion-col col-10>
 			<ion-searchbar *ngIf="!selectingImage" (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
@@ -18,54 +18,21 @@
 			</button>
 		</ion-col>
 	</ion-row>
-	
-	<ion-row *ngIf="!selectingImage">
-		<!--new -->
-		<ion-col col-6 *ngIf="createNewProduct">
-			<ion-card>
-				<img src="{{image ? image.location : 'http://via.placeholder.com/1000x1000'}}" (click)="openGalery()" />
-				<ion-card-content>
-					<ion-card-title>
-						<input class="input" type="text" [(ngModel)]="name" placeholder="Nombre" (click)="showPrompt()">
-					</ion-card-title>
-					<p class="code">
-						<input class="input" (click)="loadCode()" type="text" [(ngModel)]="code" placeholder="Codigo">
-					</p>
-					<ion-row>
-						<ion-col col-6>
-							<button class="action-button" right ion-button (click)="save()" [disabled]="!validate()">Guardar</button>
-						</ion-col>
-						<ion-col col-6>
-							<button class="action-button" right ion-button color="danger" (click)="cancel()">Cancelar</button>
-						</ion-col>
-					</ion-row>
-				</ion-card-content>
-			</ion-card>
-		</ion-col>
-		<!-- for -->
-		<ion-col col-6 *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory() | filter : 'name' : searchFilterValue | filter : 'code' : searchCodeFilterValue">
-			<ion-card (click)="navigateToUnits(product._id)">
-				<img src="{{getImageLocation(product.image)}}"/>
-				<ion-card-content>
-					<ion-card-title>
-						{{product.name}}
-					</ion-card-title>
-					<p class="code">
-						{{product.code}}
-					</p>
-					<p class="code">
-						Unidades: {{getUnitsCountByIdProduct(product._id)}}
-					</p>
-				</ion-card-content>
-			</ion-card>
-		</ion-col>
-	</ion-row>
+
+	<ion-list>
+
+		<new-product-component (openGalery)="openGalery()" (close)="closeShowNewProduct()" *ngIf="showNewProduct"></new-product-component>
+
+		<product-component *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory() | filter : 'name' : searchFilterValue | filter : 'code' : searchCodeFilterValue" [product]="product" [category]="getSelectedCategory ()" (openGalery)="openGalery()"></product-component>
+
+	</ion-list>
 
 	<div class="emptyMarginBottom"></div>
 
-	<ion-fab right bottom *ngIf="!selectingImage">
-		<button ion-fab (click)="openCreateNewProduct()">
+	<ion-fab right bottom>
+		<button ion-fab (click)="openShowNewProduct()">
 			<ion-icon name="add"></ion-icon>
 		</button>
 	</ion-fab>
+
 </ion-content>

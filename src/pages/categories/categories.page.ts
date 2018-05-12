@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { MemoryService } from './../../services/memory.service';
 import * as Constants from './../../models/constants';
 import { Galery } from './../../components/galery/galery';
@@ -15,11 +16,12 @@ export class CategoriesPage implements OnInit {
 
 	constructor(
 		private memory: MemoryService,
-		public modalCtrl: ModalController
+		public modalCtrl: ModalController,
+		public navCtrl: NavController
 		) {}
 
 	ngOnInit() { 
-		
+		//console.log(this.navCtrl);
 	}
 
 	private searchFilter (e) {
@@ -35,6 +37,7 @@ export class CategoriesPage implements OnInit {
 	}
 
 	private openCreateNewCategory () {
+		this.memory.addSelect(null, Constants.IMAGE);
 		this.showNewCategory = true;
 	}
 
