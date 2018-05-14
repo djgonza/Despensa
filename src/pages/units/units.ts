@@ -40,6 +40,12 @@ export class UnitsPage {
 		this.isNew = false;
 	}
 
+	private getProductName () {
+		var productId = this.getSelectedProduct();
+		return this.memory.getValue(Constants.PRODUCT, productId).name;
+
+	}
+
 	private save () {
 		this.loader.addMessage("Creando unidad");
 		this.http.post(Constants.UNIT, Constants.PATHS.units.createUnit, new Unit(this.expirationDate,this.location,this.getSelectedProduct(),this.quantity))

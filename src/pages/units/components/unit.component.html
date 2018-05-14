@@ -1,4 +1,4 @@
-<ion-item-sliding #item (click)="navigateToUnits()" *ngIf="!editing">
+<ion-item-sliding #item *ngIf="!editing">
 	<ion-item [ngClass]="getStatus(unit.expirationDate)">
 		<ion-row align-items-center>
 			<ion-col col-7>
@@ -8,18 +8,20 @@
 			</ion-col>
 			<ion-col col-5>
 				<ion-row align-items-center>
-					<ion-col col-4>
-						<button ion-button icon-only small (click)="addQuantityLess(unit)">
-							<ion-icon name="md-remove"></ion-icon>
-						</button>
-					</ion-col>
-					<ion-col col-4 text-center class="font-ligth">
+					<ion-col col-6 text-center class="font-ligth">
 						{{unit.quantity}}
 					</ion-col>
-					<ion-col col-4>
-						<button ion-button icon-only small (click)="addQuantityPlus(unit)">
-							<ion-icon name="md-add"></ion-icon>
-						</button>
+					<ion-col col-6>
+						<ion-row justify-content-end>
+							<button ion-button icon-only small (click)="addQuantityLess(unit)">
+								<ion-icon name="md-remove"></ion-icon>
+							</button>
+						</ion-row>
+						<ion-row justify-content-end>
+							<button ion-button icon-only small (click)="addQuantityPlus(unit)">
+								<ion-icon name="md-add"></ion-icon>
+							</button>
+						</ion-row>
 					</ion-col>
 				</ion-row>
 			</ion-col>

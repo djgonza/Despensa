@@ -42,9 +42,13 @@ export class ProductComponent implements OnInit {
 	}
 
 	private getUnitsCountByIdProduct (idProduct) {
-		return this.memory.getValues(Constants.UNIT).filter(unit => {
+		var unitsCount = 0;
+		this.memory.getValues(Constants.UNIT).filter(unit => {
 			return unit.product == idProduct;
-		}).length;
+		}).forEach(unit => {
+			unitsCount += unit.quantity;
+		});
+		return unitsCount;
 	}
 
 	private navigateToUnits () {

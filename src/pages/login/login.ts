@@ -74,7 +74,6 @@ export class LoginPage {
 			name: this.name,
 			secret: this.secret
 		}).subscribe(res => {
-			console.log(res);
 			//this.alertService.addMessage('Bienvenido');
 			this.navCtrl.push(TabsPage);
 		}, err => {

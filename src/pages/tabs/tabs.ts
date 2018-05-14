@@ -4,6 +4,7 @@ import { CategoriesPage } from '../categories/categories.page';
 import { ProductsPage } from '../products/products';
 import { GaleryPage } from './../galery/galery.page';
 import { LocationsPage } from './../locations/locations';
+import { SeekerPage } from './../seeker/seeker.page';
 
 import { HttpService } from './../../services/http.service';
 import { LoaderService } from './../../services/loader.service';
@@ -18,6 +19,7 @@ export class TabsPage implements OnInit {
 	private tab1Root = CategoriesPage;
 	private tab2Root = GaleryPage;
 	private tab3Root = LocationsPage;
+	private tab4Root = SeekerPage;
 
 	constructor(
 		private http: HttpService,

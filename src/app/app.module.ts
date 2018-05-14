@@ -25,6 +25,7 @@ import { Galery } from '../components/galery/galery';
 import { GaleryPage } from './../pages/galery/galery.page';
 import { LoginPage } from '../pages/login/login';
 import { LocationsPage } from '../pages/locations/locations';
+import { SeekerPage } from '../pages/seeker/seeker.page';
 
 import { CategoriesPage } from '../pages/categories/categories.page';
 import { CategoryComponent } from '../pages/categories/category.component';
@@ -63,6 +64,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		CategoriesPage,
 		ProductsPage,
 		GaleryPage,
+		SeekerPage,
 		LocationsPage
 	],
 	imports: [
@@ -77,6 +79,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		CategoriesPage,
 		ProductsPage,
 		GaleryPage,
+		SeekerPage,
 		LoginPage,
 		UnitsPage,
 		LocationsPage,

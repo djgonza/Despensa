@@ -1,0 +1,27 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			Buscador
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-row justify-content-center>
+		<ion-col col-10>
+			<ion-searchbar (ionInput)="setSearchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
+		</ion-col>
+		<ion-col col-2 align-self-center>
+			<button color="{{codeFilter ? 'danger' : null}}" ion-button icon-only (click)="loadCode()">
+				<ion-icon name="{{codeFilter ? 'close-circle' : 'barcode'}}"></ion-icon>
+			</button>
+		</ion-col>
+	</ion-row>
+
+	<div class="label-title">Productos</div>
+	<ion-list>
+		<product-component *ngFor="let product of getProducts() | async | filter : 'name' : stringFilter | filter : 'code' : codeFilter" [product]="product"></product-component>
+	</ion-list>
+
+</ion-content>
