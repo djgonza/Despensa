@@ -103,7 +103,8 @@ export class ProductComponent implements OnInit {
 		e.stopPropagation();
 		this.loader.addMessage("Actualizando producto");
 		this.editing = false;
-		this.productEditing.image = this.memory.getSelectedValue(Constants.IMAGE)._id;
+		var image = this.memory.getSelectedValue(Constants.IMAGE);
+		this.productEditing.image = image ? image._id : null;
 		this.http.put(Constants.PRODUCT, Constants.PATHS.products.updateProduct, this.productEditing)
 		.subscribe(validate => {
 			this.loader.removeMessage("Actualizando producto");
