@@ -20,8 +20,8 @@ export class LoginPage {
 
 	//TODO: fingerPrint y sistema para recordar usuarios
 
-	@Input() name: string;// = "David";
-	@Input() secret: string;// = "123";
+	@Input() name: string = "Fran";
+	@Input() secret: string = "fran";
 	private showError: boolean = false;
 	private className: string = '';
 	private err: string = null;

@@ -37,6 +37,27 @@ export class CategoryComponent implements OnInit {
 		
 	}
 
+	private getTotalUnits () {
+		var units = 0;
+		this.memory.getValues(Constants.CATEGORY)
+		.filter(category => {
+			return category._id == this.category._id
+		})
+		.forEach(category => {
+			this.memory.getValues(Constants.PRODUCT)
+			.filter(product => {
+				return product.category == category._id
+			}).forEach(product => {
+				this.memory.getValues(Constants.UNIT).filter(unit => {
+					return unit.product == product._id
+				}).forEach(unit => {
+					units += unit.quantity
+				})
+			})
+		})
+		return units;
+	}
+
 	private navigateToProducts (categoryId: string) {
 		if (this.editing) return;
 		this.memory.addSelect(categoryId, Constants.CATEGORY);

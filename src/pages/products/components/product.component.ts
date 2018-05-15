@@ -22,6 +22,10 @@ import { LoaderService } from '../../../services/loader.service';
 })
 export class ProductComponent implements OnInit {
 
+	//TODO: qr error salir
+	//Eliminar recursivo para la pagina de busqueda
+	//Alert para confirmar salida
+
 	@Input() product: Product;
 	@Input() category: Category;
 	@Output() openGalery = new EventEmitter<boolean>();

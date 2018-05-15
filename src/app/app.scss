@@ -102,6 +102,10 @@ ion-item-sliding {
   margin-bottom: 7rem;
 }
 
+ion-label {
+  white-space: initial;
+}
+
 @keyframes addLoanding {
   0% {
     content: '.';
