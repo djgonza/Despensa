@@ -41,6 +41,8 @@ import { UnitComponent } from './../pages/units/components/unit.component';
 import { OrderByDate } from '../pipes/orderByDate';
 import { Filter } from '../pipes/filter';
 import { TimeToEnd } from '../pipes/timeToEnd';
+import { OrderAlphabetically } from '../pipes/orderAlphabetically';
+import { OrderAlphabeticallyReverse } from '../pipes/orderAlphabeticallyReverse';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -59,6 +61,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 		OrderByDate,
 		Filter,
 		TimeToEnd,
+		OrderAlphabetically,
+		OrderAlphabeticallyReverse,
 		LoginPage,
 		UnitsPage,
 		CategoriesPage,

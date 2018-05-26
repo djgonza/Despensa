@@ -41,7 +41,6 @@ export class ProductsPage implements OnInit {
 	
 	}
 
-
 	private searchFilter (e) {
 		this.searchFilterValue = e.target.value;
 	}

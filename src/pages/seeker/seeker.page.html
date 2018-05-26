@@ -9,7 +9,7 @@
 <ion-content>
 
 	<ion-row justify-content-center>
-		<ion-col col-10>
+		<ion-col col-8>
 			<ion-searchbar (ionInput)="setSearchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
 		</ion-col>
 		<ion-col col-2 align-self-center>
@@ -17,11 +17,26 @@
 				<ion-icon name="{{codeFilter ? 'close-circle' : 'barcode'}}"></ion-icon>
 			</button>
 		</ion-col>
+		<ion-col col-2 align-self-center>
+			<button ion-button icon-only (click)="orderAlphabetically()">
+				<ion-icon name="{{orderAlphabeticallyDirection ? 'arrow-down' : 'arrow-up'}}"></ion-icon>
+			</button>
+		</ion-col>
 	</ion-row>
 
 	<div class="label-title">Productos</div>
 	<ion-list>
-		<product-component *ngFor="let product of getProducts() | async | filter : 'name' : stringFilter | filter : 'code' : codeFilter" [product]="product"></product-component>
+
+		<!-- Ordenamos alfabeticamente -->
+		<div *ngIf="!orderAlphabeticallyDirection">
+			<product-component *ngFor="let product of getProducts() | async | filter : 'name' : stringFilter | filter : 'code' : codeFilter | orderAlphabetically : 'name'" [product]="product"></product-component>
+		</div>
+
+		<!-- Ordenamos alfabeticamente inverso -->
+		<div *ngIf="orderAlphabeticallyDirection">
+			<product-component *ngFor="let product of getProducts() | async | filter : 'name' : stringFilter | filter : 'code' : codeFilter | orderAlphabeticallyReverse : 'name'" [product]="product"></product-component>
+		</div>
+
 	</ion-list>
 
 </ion-content>

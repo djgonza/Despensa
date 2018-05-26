@@ -16,6 +16,7 @@ export class SeekerPage implements OnInit {
 
 	private codeFilter: string = '';
 	private stringFilter: string = '';
+	private orderAlphabeticallyDirection: boolean = false;
 
 	constructor(
 		private memory: MemoryService,
@@ -26,6 +27,14 @@ export class SeekerPage implements OnInit {
 
 	ngOnInit() { 
 
+	}
+
+	private orderAlphabetically () {
+		this.orderAlphabeticallyDirection = !this.orderAlphabeticallyDirection;
+	}
+
+	private orderByDate () {
+		
 	}
 
 	private setSearchFilter(e) {

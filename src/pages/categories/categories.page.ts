@@ -13,6 +13,7 @@ export class CategoriesPage implements OnInit {
 
 	private searchFilterValue: string = '';
 	private showNewCategory: boolean = false;
+	private orderAlphabeticallyDirection: boolean = false;
 
 	constructor(
 		private memory: MemoryService,
@@ -22,6 +23,10 @@ export class CategoriesPage implements OnInit {
 
 	ngOnInit() { 
 		//console.log(this.navCtrl);
+	}
+
+	private orderAlphabetically() {
+		this.orderAlphabeticallyDirection = !this.orderAlphabeticallyDirection;
 	}
 
 	private searchFilter (e) {

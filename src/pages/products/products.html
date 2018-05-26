@@ -23,7 +23,7 @@
 
 		<new-product-component (openGalery)="openGalery()" (close)="closeShowNewProduct()" *ngIf="showNewProduct"></new-product-component>
 
-		<product-component *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory() | filter : 'name' : searchFilterValue | filter : 'code' : searchCodeFilterValue" [product]="product" [category]="getSelectedCategory ()" (openGalery)="openGalery()"></product-component>
+		<product-component *ngFor="let product of getProducts() | async | filter : 'category' : getSelectedCategory() | filter : 'name' : searchFilterValue | filter : 'code' : searchCodeFilterValue | orderAlphabetically : 'name'" [product]="product" [category]="getSelectedCategory ()" (openGalery)="openGalery()"></product-component>
 
 	</ion-list>
 

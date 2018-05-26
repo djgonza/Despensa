@@ -8,14 +8,31 @@
 
 <ion-content>
 
-	<ion-searchbar (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
+	<ion-row justify-content-center>
+		<ion-col col-10>
+			<ion-searchbar (ionInput)="searchFilter($event)" placeholder="Buscar..." animated="true"></ion-searchbar>
+		</ion-col>
+		<ion-col col-2 align-self-center>
+			<button ion-button icon-only (click)="orderAlphabetically()">
+				<ion-icon name="{{orderAlphabeticallyDirection ? 'arrow-down' : 'arrow-up'}}"></ion-icon>
+			</button>
+		</ion-col>
+	</ion-row>
 
 	<ion-list padding>
 
 		<new-category *ngIf="showNewCategory" (close)="closeCreateNewCategory($event)" (openGalery)="openGalery($event)"></new-category>
 
 		<ion-list>
-			<category (openGalery)="openGalery($event)" [category]="category" *ngFor="let category of getCategories() | async | filter : 'name' : searchFilterValue"></category>
+	
+			<div *ngIf="!orderAlphabeticallyDirection">
+				<category (openGalery)="openGalery($event)" [category]="category" *ngFor="let category of getCategories() | async | filter : 'name' : searchFilterValue | orderAlphabetically : 'name'"></category>
+			</div>
+
+			<div *ngIf="orderAlphabeticallyDirection">
+				<category (openGalery)="openGalery($event)" [category]="category" *ngFor="let category of getCategories() | async | filter : 'name' : searchFilterValue | orderAlphabeticallyReverse : 'name'"></category>
+			</div>
+
 		</ion-list>
 
 	</ion-list>
