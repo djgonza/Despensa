@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AlertController } from 'ionic-angular';
 import { map } from 'rxjs/operators';
+import moment from 'moment';
 
 import * as Constants from './../../../models/constants';
 import { Product } from './../../../models/product';
@@ -45,6 +46,20 @@ export class ProductComponent implements OnInit {
 	ngOnInit() { 
 	}
 
+	private hasUnitExpired () {
+		var expired = false
+		this.memory.getValues(Constants.UNIT)
+		.filter(unit => {
+			return unit.product == this.product._id
+		}).forEach(unit => {
+			if (moment(unit.expirationDate).isBefore(moment())) {
+				expired = true;
+				return;
+			}
+		});
+		return expired;
+	}
+
 	private getUnitsCountByIdProduct (idProduct) {
 		var unitsCount = 0;
 		this.memory.getValues(Constants.UNIT).filter(unit => {
@@ -67,7 +82,7 @@ export class ProductComponent implements OnInit {
 				if (image) return image.location;
 				return 'http://via.placeholder.com/1000x1000';	
 			})
-		);
+			);
 	}
 
 	private loadCode () {

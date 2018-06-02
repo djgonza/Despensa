@@ -7,6 +7,7 @@
 		<h2>{{category.name}}</h2>
 		<h3>Productos: {{getCountProductsInCategory(category._id)}}</h3>
 		<h3>Unidades: {{getTotalUnits()}}</h3>
+		<ion-icon *ngIf="hasUnitExpired()" name="alert" style="position: absolute; z-index: 1000;bottom: 10%;right: 3%;font-size: 3rem;color: red;"></ion-icon>
 	</ion-item>
 	
 	<ion-item-options side="left">

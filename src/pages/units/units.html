@@ -15,8 +15,10 @@
 		</ion-item>
 		<ion-item>
 			<ion-label stacked>Fecha Caducidad</ion-label>
-			<ion-input type="date" [(ngModel)]="expirationDate"></ion-input>
+			<!--<ion-input type="date" [(ngModel)]="expirationDate"></ion-input>-->
+			<ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="expirationDate"></ion-datetime>
 		</ion-item>
+		<!-- <button ion-button color="secondary" (click)="addOneYearToExpirationDate()">+1 Año</button> -->
 		<ion-item>
 			<ion-label stacked>Cantidad</ion-label>
 			<ion-input type="number" [(ngModel)]="quantity"></ion-input>

@@ -1,4 +1,4 @@
-import { Component, Injectable, Pipe, PipeTransform } from '@angular/core';
+import { Component, Injectable, Pipe, PipeTransform, OnInit } from '@angular/core';
 import moment from 'moment';
 import { Observable } from "rxjs/Observable";
 import { NavController } from 'ionic-angular';
@@ -13,18 +13,22 @@ import { Unit } from './../../models/unit';
 	selector: 'page-units',
 	templateUrl: 'units.html'
 })
-export class UnitsPage {
+export class UnitsPage implements OnInit {
 
 	private isNew: boolean = false;
 	private isEdit: boolean = false;
 	private isDelete: boolean = false;
 	private location: string;
-	private expirationDate: Date;
+	private expirationDate: string;
 	private quantity: number = 0;
 	private actionButton = {
 		show: false,
 		x: 0,
 		y: 0
+	}
+
+	ngOnInit () {
+		this.expirationDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString();
 	}
 
 	constructor(
@@ -35,6 +39,10 @@ export class UnitsPage {
 		private locationService: LocationService
 		) {
 	}
+
+	// private addOneYearToExpirationDate () {
+	// 	this.expirationDate = new Date(new Date().setFullYear(new Date(this.expirationDate).getFullYear() + 1)).toISOString();
+	// }
 
 	private cancel () {
 		this.isNew = false;
@@ -48,7 +56,8 @@ export class UnitsPage {
 
 	private save () {
 		this.loader.addMessage("Creando unidad");
-		this.http.post(Constants.UNIT, Constants.PATHS.units.createUnit, new Unit(this.expirationDate,this.location,this.getSelectedProduct(),this.quantity))
+		var expirationFormated = new Date(this.expirationDate);
+		this.http.post(Constants.UNIT, Constants.PATHS.units.createUnit, new Unit(expirationFormated,this.location,this.getSelectedProduct(),this.quantity))
 		.subscribe(unit => {
 			this.closeCreateNewUnit();
 		}, err => {

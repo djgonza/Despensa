@@ -2,6 +2,7 @@ import { Component, OnInit, Pipe, Input, Output, EventEmitter } from '@angular/c
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { map } from 'rxjs/operators';
+import moment from 'moment';
 
 import { MemoryService } from './../../services/memory.service';
 import { HttpService } from './../../services/http.service';
@@ -37,24 +38,39 @@ export class CategoryComponent implements OnInit {
 		
 	}
 
+	private hasUnitExpired () {
+		var expired = false;
+		this.memory.getValues(Constants.PRODUCT)
+		.filter(product => {
+			return product.category == this.category._id
+		})
+		.forEach(product => {
+			if (expired) return;
+			this.memory.getValues(Constants.UNIT).filter(unit => {
+				return unit.product == product._id
+			}).forEach(unit => {
+				if (moment(unit.expirationDate).isBefore(moment())) {
+					expired = true;
+					return;
+				}
+			});
+		});
+		return expired;
+	}
+
 	private getTotalUnits () {
 		var units = 0;
-		this.memory.getValues(Constants.CATEGORY)
-		.filter(category => {
-			return category._id == this.category._id
+		this.memory.getValues(Constants.PRODUCT)
+		.filter(product => {
+			return product.category == this.category._id
 		})
-		.forEach(category => {
-			this.memory.getValues(Constants.PRODUCT)
-			.filter(product => {
-				return product.category == category._id
-			}).forEach(product => {
-				this.memory.getValues(Constants.UNIT).filter(unit => {
-					return unit.product == product._id
-				}).forEach(unit => {
-					units += unit.quantity
-				})
+		.forEach(product => {
+			this.memory.getValues(Constants.UNIT).filter(unit => {
+				return unit.product == product._id
+			}).forEach(unit => {
+				units += unit.quantity
 			})
-		})
+		});
 		return units;
 	}
 
@@ -71,7 +87,7 @@ export class CategoryComponent implements OnInit {
 				if (image) return image.location;
 				return 'http://via.placeholder.com/1000x1000';	
 			})
-		);
+			);
 	}
 
 	private getImageLocation (imageId: string): string {
