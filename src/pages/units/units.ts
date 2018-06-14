@@ -21,6 +21,7 @@ export class UnitsPage implements OnInit {
 	private location: string;
 	private expirationDate: string;
 	private quantity: number = 0;
+	private datetimeMax = moment().add(20, 'years').toISOString();
 	private actionButton = {
 		show: false,
 		x: 0,
