@@ -12,6 +12,8 @@ import { HttpService } from './../../services/http.service';
 })
 export class AlertComponent implements OnInit {
 
+	//Crear alertas para los productos caducados o proximos a caducar
+
 	@Input() alert: Alert;
 	private showDetail: boolean = false;
 	private isDeleting: boolean = false;
@@ -37,7 +39,7 @@ export class AlertComponent implements OnInit {
 
 	private ondrag(item) {
 		let percent = item.getSlidingPercent();
-		if (Math.abs(percent) > 5 && !this.isDeleting) {
+		if (Math.abs(percent) > 3 && !this.isDeleting) {
 			this.delete(null);
 			this.isDeleting = true;
 		}
