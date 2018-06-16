@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AlertPage } from '../alerts/alert.page';
 import { CategoriesPage } from '../categories/categories.page';
 import { ProductsPage } from '../products/products';
 import { GaleryPage } from './../galery/galery.page';
@@ -16,10 +17,12 @@ import * as Constants from './../../models/constants';
 })
 export class TabsPage implements OnInit {
 
-	private tab1Root = CategoriesPage;
-	private tab2Root = GaleryPage;
-	private tab3Root = LocationsPage;
-	private tab4Root = SeekerPage;
+	private tab1Root = AlertPage;
+	private tab2Root = CategoriesPage;
+	private tab3Root = GaleryPage;
+	private tab4Root = LocationsPage;
+	private tab5Root = SeekerPage;
+
 
 	constructor(
 		private http: HttpService,
@@ -50,6 +53,11 @@ export class TabsPage implements OnInit {
 		this.loaderService.addMessage("Leyendo Ubicaciones");
 		this.http.get(Constants.LOCATION, Constants.PATHS.locations.getLocations).subscribe(res => {
 			this.loaderService.removeMessage("Leyendo Ubicaciones");
+		});
+
+		this.loaderService.addMessage("Leyendo Alertas");
+		this.http.get(Constants.ALERT, Constants.PATHS.alerts.getAlerts).subscribe(res => {
+			this.loaderService.removeMessage("Leyendo Alertas");
 		});
 
 	}

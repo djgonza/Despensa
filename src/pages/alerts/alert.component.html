@@ -1,0 +1,11 @@
+<ion-item-sliding (ionSwipe)="delete(1)" (ionDrag)="ondrag(item)" (click)="select(item)" #item>
+	<ion-item>
+		<h1>{{alert.title}}</h1>
+		<p *ngIf="showDetail">{{alert.description}}</p>
+	</ion-item>
+	<ion-item-options side="left">
+		<button ion-button clear small color="danger" (click)="delete($event, item)">
+			<ion-icon name="trash" style="padding-bottom: 0; font-size: 2em;"></ion-icon>
+		</button>
+	</ion-item-options>
+</ion-item-sliding>

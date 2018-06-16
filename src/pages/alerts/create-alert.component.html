@@ -1,0 +1,14 @@
+<ion-item class="active" style="width: auto; margin: 1rem 1rem;">
+	
+	<h3>Titulo</h3>
+	<input type="text" [(ngModel)]="title">
+
+	<h3>Descripción</h3>
+	<textarea [(ngModel)]="description" style="width: 100%; min-height: 100px;"></textarea>
+
+	<h2>
+		<button right ion-button (click)="create($event)" [disabled]="!validate()">Guardar</button>
+		<button right ion-button color="danger" (click)="cancel($event)">Cancelar</button>
+	</h2>
+
+</ion-item>

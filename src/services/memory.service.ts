@@ -8,6 +8,7 @@ import { Product } from './../models/product';
 import { Unit } from './../models/unit';
 import { Locations } from './../models/locations';
 import { Image } from './../models/image';
+import { Alert } from './../models/alert';
 
 @Injectable()
 export class MemoryService {
@@ -17,6 +18,7 @@ export class MemoryService {
 	private _units: BehaviorSubject<Unit[]> = new BehaviorSubject<Unit[]>(new Array());
 	private _images: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>(new Array());
 	private _locations: BehaviorSubject<Locations[]> = new BehaviorSubject<Locations[]>(new Array());
+	private _alerts: BehaviorSubject<Alert[]> = new BehaviorSubject<Alert[]>(new Array());
 	private _selectedCategory: BehaviorSubject<string> = new BehaviorSubject<string>("");
 	private _selectedProduct: BehaviorSubject<string> = new BehaviorSubject<string>("");
 	private _selectedUnit: BehaviorSubject<string> = new BehaviorSubject<string>("");
@@ -41,6 +43,8 @@ export class MemoryService {
 				return this._images;
 			case Constants.LOCATION:
 				return this._locations;
+			case Constants.ALERT:
+				return this._alerts;
 			default:
 			break;
 		}
@@ -52,6 +56,7 @@ export class MemoryService {
 		this._units.next([]);
 		this._images.next([]);
 		this._locations.next([]);
+		this._alerts.next([]);
 	}
 
 	/*

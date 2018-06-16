@@ -5,6 +5,7 @@ export const CATEGORY = 'category';
 export const UNIT = 'unit';
 export const LOCATION = 'location';
 export const IMAGE = 'image';
+export const ALERT = 'alert';
 
 export const PATHS = {
 	categories: {
@@ -36,5 +37,28 @@ export const PATHS = {
 		createImage: environment.imagesApi + '/images/create',
 		updateImage: environment.imagesApi + '/images/update',
 		deleteImage: environment.imagesApi + '/images/delete',
+	},
+	alerts: {
+		getAlerts: environment.despensaRestApi + '/alerts/load',
+		createAlerts: environment.despensaRestApi + '/alerts/create',
+		deleteAlerts: environment.despensaRestApi + '/alerts/delete',
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

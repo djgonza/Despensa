@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			Alertas
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	
+	<ion-list padding>
+
+		<component-create-alert *ngIf="creatingNewAlert" (close)="closeNewAlert($event)"></component-create-alert>
+
+		<component-alert *ngFor="let alert of getAlerts() | async" [alert]="alert"></component-alert>
+
+	</ion-list>
+
+	<ion-fab right bottom>
+		<button ion-fab (click)="newAlert()">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
+
+</ion-content>

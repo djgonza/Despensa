@@ -13,6 +13,7 @@ import { Product } from './../models/product';
 import { Unit } from './../models/unit';
 import { Locations } from './../models/locations';
 import { Image } from './../models/image';
+import { Alert } from './../models/alert';
 
 @Injectable()
 export class HttpService {
@@ -156,6 +157,7 @@ export class HttpService {
 			case Constants.UNIT: return Object.assign(new Unit(null, null, null, null), jsonObject);
 			case Constants.LOCATION: return Object.assign(new Locations(null), jsonObject);
 			case Constants.IMAGE: return Object.assign(new Image(null, null, null, null, null, null, null, null, null, null, null, null, null), jsonObject);
+			case Constants.ALERT: return Object.assign(new Alert(null, null), jsonObject);
 			default: return null;
 		}
 
